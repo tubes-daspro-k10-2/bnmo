@@ -14,13 +14,27 @@
 
 ## file structure
 bnmo
+
 -eksperimen
+
 --{files eksperimen cuma buat refer aja}
+ 
 -f02.py
+
 -f03.py
+ 
 .
+
 .
+
 -f16.py
+ 
 -f17.py
+ 
 -main.py
+ 
 -utils.py
+ 
+ .
+ 
+ .
