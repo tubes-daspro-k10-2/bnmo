@@ -1,8 +1,10 @@
 import os
 
+import time
+
 from utils import *
 from utils_ui import *
-from utils_user import *
+from utils_file import *
 
 import f15
 
@@ -18,14 +20,19 @@ args = parser.parse_args()
 if args.folderName != None :
     truePath = './'+str(args.folderName)+'/'
     printCenter('Loading ...', width)
+
+    time.sleep(2)
+
     if(not f15.folderExist(truePath)):
-        print(f'folder "{args.folderName}" tidak ditemukan')
+        printWarning(f'folder "{args.folderName}" tidak ditemukan', width)
+        time.sleep(1)
     else:
-        f15.Load(truePath)
+        print(f15.Load(truePath))
+        time.sleep(1)
     #read_csv(args.folderName)
     #py main.py -folderName ./eksperimen/user.csv
 else:
-    printCenter('Folder tidak diberikan', width)
+    printWarning('Folder tidak diberikan', width)
     #quit()
 ##############################
 

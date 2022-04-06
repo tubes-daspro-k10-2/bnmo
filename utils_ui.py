@@ -29,6 +29,7 @@ def mainChoices():
 
 
 def printCenter(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = 20, space : str = ' '):
+    # center align print, parameter : teks masukan, lebar layar, isian space
     textLen = getLength(text)
     diff = screenWidth - textLen
 
@@ -42,6 +43,7 @@ def printCenter(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = 20, s
         print(int((diff+1)/2) * space + text + int((diff-1)/2) * space)
 
 def printRight(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = 20, space : str = ' '):
+    # right align print, parameter : teks masukan, lebar layar, isian space
     textLen = getLength(text)
     diff = screenWidth - textLen
 
@@ -50,3 +52,26 @@ def printRight(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = 20, sp
         return
 
     print(diff*space + text)
+
+def printBlock(char : str = '#', screenWidth : int = 20):
+    print(char*screenWidth)
+
+def printWarning(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = 20, space : str = ' '):
+    # center align print, parameter : teks masukan, lebar layar, isian space
+    textLen = getLength(text)
+    diff = screenWidth - textLen
+
+    textToPrint = text
+
+    if textLen > screenWidth :
+        textToPrint = text
+    else:
+        if isGenap(diff):
+            textToPrint = (int(diff/2) * space + text + int(diff/2) * space)
+        else:
+            textToPrint = (int((diff+1)/2) * space + text + int((diff-1)/2) * space)
+    print()
+    printBlock(screenWidth=screenWidth)
+    printCenter(textToPrint, screenWidth)
+    printBlock(screenWidth=screenWidth)
+    print()

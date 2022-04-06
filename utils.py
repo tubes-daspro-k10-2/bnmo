@@ -1,5 +1,5 @@
-
 # main util
+import time
 
 def getLength(arr : list) -> int:
     count : int = 0
@@ -36,3 +36,20 @@ def split(toSplit : str, delimiter : str) -> list[str]:
 
 def isGenap(x : int) -> bool: 
     return x % 2 == 0
+
+# cara pernggunaan persis dengan Random.RandInt
+def lcgInt(minInt : int = 0, maxInt : int = 1) -> int:
+    seedInt = (time.monotonic())
+    x = seedInt
+    a = 3
+    c = 1
+    m = 7 # changeable, found that the optimal value is 7
+   
+    lcgResult = int(((a*x)+c) % m ) + 1
+
+    return int(lerp(minInt, maxInt, lcgResult/m)) # lcgResul that is lerp-ed to a and b
+    # print(LCG)
+    # print(time.monotonic())
+
+def lerp(a, b, t)   :
+    return (t*(b-a)+a)

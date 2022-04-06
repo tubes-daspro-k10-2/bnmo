@@ -1,9 +1,10 @@
+from fileinput import filename
 from utils import *
 
-def read_csv(path : str) -> list[str]:
+def read_csv(folderPath : str, fileName : str) -> list[str]:
     resultArray = []
 
-    with open(path) as f:
+    with open(str(folderPath)+str(fileName)+'.csv') as f:
         file = f.read()
         #print(file)
 
@@ -61,3 +62,4 @@ def parse(path : str) -> list :
     return lines
 
 #known error : read buat 1 baris yang ga jelas, by excel si
+#print(read_csv('./eksperimen/user.csv'))
