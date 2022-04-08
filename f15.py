@@ -1,7 +1,6 @@
 # load
 # needs user.csv, game.csv, riwayat.csv, kepemilikan.csv
 
-import os
 from utils_file import *
 
 def Load(folderArg : str) -> tuple[list]:
@@ -14,12 +13,7 @@ def Load(folderArg : str) -> tuple[list]:
 
     return (userArr, gameArr, riwayatArr, kepemilikanArr)
 
-def folderExist(folderArg : str) -> bool :
-    for (root, dirs, files) in os.walk(folderArg, topdown=True):
-        if root == folderArg:
-            return True
-        
-    return False
+
 
 
 #folderExist('.')

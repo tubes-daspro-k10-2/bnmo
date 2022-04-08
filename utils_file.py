@@ -1,5 +1,12 @@
-from fileinput import filename
+import os
 from utils import *
+
+def folderExist(folderArg : str) -> bool :
+    for (root, dirs, files) in os.walk(folderArg, topdown=True):
+        if root == folderArg:
+            return True
+        
+    return False
 
 def read_csv(folderPath : str, fileName : str) -> list[str]:
     resultArray = []
@@ -14,8 +21,9 @@ def read_csv(folderPath : str, fileName : str) -> list[str]:
 
     return resultArray
 
-def write_csv(path : str, *values):
-    data = read_csv(path)
+#need revamp
+def make_csv(path : str, fileName : str, *values):
+    data = read_csv(path, fileName)
     newData : str = ''
 
     for i in range(len(values)):
@@ -24,12 +32,11 @@ def write_csv(path : str, *values):
             newData += ';'
     data += [newData]
     
-    rewrite_csv(path, data)
+    write_csv(path, fileName, data)
     #update_csv(path)
 
-def rewrite_csv(path : str, content : list[str]):
-    with open(path, 'r+') as f:
-        f.seek(0)
+def write_csv(folderPath : str, fileName, content : list[str]):
+    with open(str(folderPath)+str(fileName)+'.csv', 'w+') as f:
         for i in content:
             print(i)
             f.write(i + '\n')

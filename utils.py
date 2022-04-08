@@ -39,7 +39,7 @@ def isGenap(x : int) -> bool:
 
 # cara pernggunaan persis dengan Random.RandInt
 def lcgInt(minInt : int = 0, maxInt : int = 1) -> int:
-    seedInt = (time.monotonic())
+    seedInt = (time.monotonic()) # might as well times this by 3
     x = seedInt
     a = 3
     c = 1

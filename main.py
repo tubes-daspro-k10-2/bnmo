@@ -6,7 +6,8 @@ from utils import *
 from utils_ui import *
 from utils_file import *
 
-import f15
+from f15 import Load
+from f16 import Save
 
 width = 100 # constant
 
@@ -23,11 +24,11 @@ if args.folderName != None :
 
     time.sleep(2)
 
-    if(not f15.folderExist(truePath)):
+    if(not folderExist(truePath)):
         printWarning(f'folder "{args.folderName}" tidak ditemukan', width)
         time.sleep(1)
     else:
-        print(f15.Load(truePath))
+        print(Load(truePath))
         time.sleep(1)
     #read_csv(args.folderName)
     #py main.py -folderName ./eksperimen/user.csv
@@ -51,8 +52,12 @@ print()
 
 mainChoices()
 print()
-input('Masukkan perintah : ')
-
+dummiinput = input('Masukkan perintah : ')
+if dummiinput == 'save':
+    Save(input())
+    print('saving ...')
+elif dummiinput == 'put' :
+    make_csv(truePath, 'user', 1, 'username', 'nama', 'password', 1000)
 # list of menus to choose
 #1
 #2
