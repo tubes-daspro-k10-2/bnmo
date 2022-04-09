@@ -37,9 +37,16 @@ def make_csv(path : str, fileName : str, *values):
 
 def write_csv(folderPath : str, fileName, content : list[str]):
     with open(str(folderPath)+str(fileName)+'.csv', 'w+') as f:
-        for i in content:
-            print(i)
-            f.write(i + '\n')
+        for i in range(getLength(content)):
+            print(content[i])
+            f.write(content[i])
+            if i+1 < getLength(content):
+                f.write('\n')
+
+
+
+
+        
 
 # def parse(path : str) -> list :
 #     # array dengan anggota string tiap baris

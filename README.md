@@ -1,6 +1,5 @@
 # bnmo
 
-
 ## important links
 1. spesifikasi
 > https://docs.google.com/document/d/1mqODeKIMLjvRmoUb_XQPK7pOifJb-rma83bMuqE9C1s/edit?pli=1
@@ -38,3 +37,7 @@ bnmo
  .
  
  .
+
+
+## ABAIKAN
+#print('┌ — ┐');print('| K |'); print('└ — ┘') 

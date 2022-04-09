@@ -22,13 +22,38 @@ def mainChoices():
     print('15. save')
     print('16. exit')
 
+def RegisterPage() -> str :
+    printCenter('Register a New User')
+    print()
+    printCenter('Nama')
+    printCenter('┌                    ┐') #maks 20
+    name = inputCenter()
+    printCenter('Username')
+    printCenter('┌                    ┐') #maks 20
+    username = inputCenter()
+    printCenter('Password')
+    printCenter('┌                    ┐') #maks 20
+    password = inputCenter()
+    
+    return name, username, password
+
 # def footer():
 #     print('made with love')
 
+################## INPUT #######################
+def inputCenter(maxLen : int = 20, screenWidth : int = 100, space : str = ' ') -> str:
+    diff = screenWidth - maxLen
+    
+    if maxLen > screenWidth :
+        return input()
 
+    if isGenap(diff):
+        return input(int(diff/2) * space)
+    else:
+        return input(int((diff+1)/2) * space)
 
-
-def printCenter(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = 20, space : str = ' '):
+################## PRINT #######################
+def printCenter(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = 100, space : str = ' '):
     # center align print, parameter : teks masukan, lebar layar, isian space
     textLen = getLength(text)
     diff = screenWidth - textLen

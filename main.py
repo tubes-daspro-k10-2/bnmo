@@ -6,10 +6,12 @@ from utils import *
 from utils_ui import *
 from utils_file import *
 
+import constants
+
 from f15 import Load
 from f16 import Save
 
-width = 100 # constant
+width = constants.defaultScreenWidth # constant
 
 ######## PARSER ##########
 import argparse
@@ -43,7 +45,11 @@ else:
 #header
 header(width)
 print()
+###################################################
+name, username, password = RegisterPage()
+make_csv(truePath, 'user', 0, name, username, password, 4000)
 
+########################################
 printCenter('Main Menu', width)
 
 # account info
@@ -57,7 +63,8 @@ if dummiinput == 'save':
     Save(input())
     print('saving ...')
 elif dummiinput == 'put' :
-    make_csv(truePath, 'user', 1, 'username', 'nama', 'password', 1000)
+    (u, n, p) = (input('u '), input('n '), input('p '))
+    make_csv(truePath, 'user', 1, u, n, p, 2000)
 # list of menus to choose
 #1
 #2
