@@ -1,4 +1,12 @@
 # bnmo
+## Important Notes
+ buat dan gunakan fungsi bantu yang ada di file utils, utils_ui, dan utils_files <br />
+ sebaiknya catat dokumentasi fungsi dan cara kerjanya di setiap file markdown (utils.md dst) <br />
+ ... 
+
+
+
+
 
 ## important links
 1. spesifikasi
