@@ -2,6 +2,7 @@
 ## Important Notes
  buat dan gunakan fungsi bantu yang ada di file utils, utils_ui, dan utils_files <br />
  sebaiknya catat dokumentasi fungsi dan cara kerjanya di setiap file markdown (utils.md dst) <br />
+tambahkan anotasi untuk tipe input dan output untuk setiap fungsi untuk mempermudah dalam pengerjaan, dokumentasi bisa di akses [di sini](https://www.geeksforgeeks.org/function-annotations-python/) <br />
  ... 
 
 
