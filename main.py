@@ -8,10 +8,16 @@ from utils_file import *
 
 import constants
 
+from f02 import register
 from f15 import Load
 from f16 import Save
 
+################## VARIABLESSS ####################
 width = constants.defaultScreenWidth # constant
+userArray = gameArray = riwayatArray = kepemilikanArray = []
+# print(userArray, gameArray, kepemilikanArray, riwayatArray)
+####################################################
+
 
 ######## PARSER ##########
 import argparse
@@ -30,7 +36,8 @@ if args.folderName != None :
         printWarning(f'folder "{args.folderName}" tidak ditemukan', width)
         time.sleep(1)
     else:
-        print(Load(truePath))
+        userArray, gameArray, riwayatArray, kepemilikanArray = Load(truePath)
+        print('load result :', userArray, gameArray, riwayatArray, kepemilikanArray)
         time.sleep(1)
     #read_csv(args.folderName)
     #py main.py -folderName ./eksperimen/user.csv
@@ -46,6 +53,7 @@ else:
 header(width)
 print()
 ###################################################
+#print(register(truePath))
 name, username, password = RegisterPage()
 make_csv(truePath, 'user', 0, name, username, password, 4000)
 

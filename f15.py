@@ -3,7 +3,7 @@
 
 from utils_file import *
 
-def Load(folderArg : str) -> tuple[list]:
+def Load(folderArg : str) -> tuple[list, list, list, list]:
     userArr = read_csv(folderArg, 'user')
     gameArr = read_csv(folderArg, 'game')
     riwayatArr = read_csv(folderArg, 'riwayat')
