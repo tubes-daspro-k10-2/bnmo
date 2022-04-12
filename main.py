@@ -9,8 +9,10 @@ from utils_file import *
 import constants
 
 from f02 import register
+from f14 import help
 from f15 import Load
 from f16 import Save
+from f17 import exit
 
 ################## VARIABLESSS ####################
 width = constants.defaultScreenWidth # constant
@@ -47,35 +49,40 @@ else:
 ##############################
 
 
+isFinished = False
+while not isFinished:
+    #header
+    header(width)
+    print()
+    ###################################################
+    #print(register(truePath))
+    name, username, password = RegisterPage()
+    make_csv(truePath, 'user', 0, name, username, password, 4000)
 
+    ########################################
+    printCenter('Main Menu', width)
 
-#header
-header(width)
-print()
-###################################################
-#print(register(truePath))
-name, username, password = RegisterPage()
-make_csv(truePath, 'user', 0, name, username, password, 4000)
+    # account info
+    printRight('Account', width)
+    print()
 
-########################################
-printCenter('Main Menu', width)
+    mainChoices()
+    print()
+    dummiinput = input('Masukkan perintah : ')
+    if dummiinput == 'save':
+        Save(input())
+        print('saving ...')
+    elif dummiinput == 'help':
+        help()
+    elif dummiinput == 'put' :
+        (u, n, p) = (input('u '), input('n '), input('p '))
+        make_csv(truePath, 'user', 1, u, n, p, 2000)
+    elif dummiinput == 'exit':
+        exit()
+        isFinished = True
+    # list of menus to choose
+    #1
+    #2
 
-# account info
-printRight('Account', width)
-print()
-
-mainChoices()
-print()
-dummiinput = input('Masukkan perintah : ')
-if dummiinput == 'save':
-    Save(input())
-    print('saving ...')
-elif dummiinput == 'put' :
-    (u, n, p) = (input('u '), input('n '), input('p '))
-    make_csv(truePath, 'user', 1, u, n, p, 2000)
-# list of menus to choose
-#1
-#2
-
-# choice prompt
-printCenter()
+    # choice prompt
+    printCenter()
