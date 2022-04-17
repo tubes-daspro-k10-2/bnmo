@@ -1,57 +1,62 @@
-# F2 - Register
-alphabet = "abcdefghijklmnopqrstuvwxyz"
-numbersymbol = "0123456789-_"
+#data :
+#     data[0] : user.csv
+#     data[1] : game.csv
 
-def getlength(list1):
-    length = 0
-    for i in list1:
-        length +=1
-    return length
+import variabelGlobal as g
+from variabelGlobal import len
 
-def mergelist(list1,list2):
-    listinlist = [list2]
-    mergedlist = list1 + listinlist
-    return mergedlist
-
-def register(dfuser):
-    nama = input("Masukan nama: ")
-    username = input("Masukan username: ")
-    password = input("Masukan password: ")
-
-    # Menghitung panjang dfuser
-    length = getlength(dfuser)
-
-    # Melakukan cek apakah terdapat username yang sama
-    sameuser = False
-    for i in range(length):
-        if (dfuser[i][1] == username):
-            sameuser = True
-    while (sameuser == True):
-        sameuser = False
-        print("Username", username," sudah terpakai, silakan menggunakan username lain.")
-        username = input("Masukan username: ")
-        for i in dfuser["username"]:
-            if (i == username):
-                sameuser = True
-            
+def valid_user(s):
+    for i in s:
+        if (i=='-' or i=='_' or 'a'<=i<='z' or 'A'<=i<='Z' or '0'<=i<='9'):
+            continue
+        else:
+            return False
+            break
+    return True
     
-    uservalid = True
-    # Melakukan cek validitas username
-    for i in username:
-        if (i not in (alphabet) and i not in (alphabet.upper()) and i not in (numbersymbol)):
-            uservalid = False
-    while (uservalid == False):
-        print("Username", username, "tidak valid. Username hanya diperkenankan mengandung alphabet, angka, underscore, dan strip")
-        username = input("Masukan username: ")
-        uservalid = True
-        for i in username:
-            if (i not in (alphabet) and i not in (alphabet.upper()) and i not in (numbersymbol)):
-                uservalid = False
 
+def register(data):
+    user = data[0]
+    #g.login = True
+    #g.role = "Admin"
+    if (not g.login):
+        print('Maaf, anda harus login terlebih dahulu untuk mengirim perintah selain "login".')
+        return;
+    else:
+        if (g.role != "Admin"):
+            print("\nMaaf, hanya role admin yang dapat mengirim perintah ini.")
+        else:
+            #=====================INPUT DATA===================
+            user_valid = False
+            while (not user_valid):
+                nama = input("Masukan nama: ")
+                username = input("Masukan username: ")
+                password = input("Masukan password: ")
+                
+                terdaftar = False
+                i = 0
+                while ((not terdaftar) and i < len(user)):
+                    if (user[i][1] == username):
+                        print("\nUsername ",username," sudah terpakai, silakan menggunakan username lain.")
+                        terdaftar = True
+                    i+=1
+                if (not terdaftar):
+                    if (valid_user(username)):
+                        user_valid = True
+                    else:
+                        print("Username hanya dapat mengandung alfabet A-Z a-z,unserscore'_',strip'-',dan angka 0-9") 
+                    
+            
+            #======================TAMBAHKAN DATA BARU===================
+            idn = len(user)
+            baru = [str(idn),username,nama,password,"User",0]
+            temp = [0 for i in range (len(user)+1)]
+            for i in range (len(user)):
+                temp[i] = user[i]
+            temp[len(user)] = baru
+            user = temp
+            #sukses didaftarkan
+            print("\nUsername ",username,' telah berhasil register ke dalam "Binomo"')
 
-    # Melakukan penggabungan 2 list
-    newid = length
-    newuserlist = [str(newid), username, nama, password, "user", "0"]
-    mergedlist = mergelist(dfuser, newuserlist)
-    print("Username", username,' telah berhasil register ke dalam "Binomo".')
-    return mergedlist
+#data = load('eksternal')
+#register(data)
