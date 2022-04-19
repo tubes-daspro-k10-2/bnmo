@@ -1,25 +1,21 @@
 import os
-
 import time
 
-from utils import *
-from utils_ui import *
-from utils_file import *
+#from utils import 
+from utils.ui import printWarning, printRight, printCenter, clearScreen
+from utils.file import append_array, folderExist # move it to save
+
+from front.ui import LoginPage, header, RegisterPage, LandingPage, MainMenu
 
 import constants
 
+from body.function_main import help ,Load, Save, exit
+
 from f02 import register
-from f14 import help
-from f15 import Load
-from f16 import Save
-from f17 import exit
-
-################## VARIABLESSS ####################
-width = constants.defaultScreenWidth # constant
-userArray = gameArray = riwayatArray = kepemilikanArray = []
-# print(userArray, gameArray, kepemilikanArray, riwayatArray)
-####################################################
-
+#from f14 import help
+#from f15 import Load
+#from f16 import Save
+#from f17 import exit
 
 ######## PARSER ##########
 import argparse
@@ -28,61 +24,74 @@ parser.add_argument('folderName', nargs='?')
 args = parser.parse_args()
 #print(args.echo)
 
-if args.folderName != None :
-    truePath = './'+str(args.folderName)+'/'
-    printCenter('Loading ...', width)
+def main():
+    sessionAccount = ['','',] #username, name, saldo
+    folderPath = ''
 
-    time.sleep(2)
+    print(args)
+    if args.folderName != None :
+        folderPath = './'+str(args.folderName)+'/'
+        printCenter('Loading ...')
 
-    if(not folderExist(truePath)):
-        printWarning(f'folder "{args.folderName}" tidak ditemukan', width)
-        time.sleep(1)
+        time.sleep(2)
+
+        if(not folderExist(folderPath)):
+            printWarning(f'folder "{args.folderName}" tidak ditemukan')
+            time.sleep(1)
+        else:
+            userArray, gameArray, riwayatArray, kepemilikanArray = Load(folderPath)
+            print('load result :', userArray, gameArray, riwayatArray, kepemilikanArray) # hapus ini
+            time.sleep(1)
+        #read_csv(args.folderName)
+        #py main.py -folderName ./eksperimen/user.csv
     else:
-        userArray, gameArray, riwayatArray, kepemilikanArray = Load(truePath)
-        print('load result :', userArray, gameArray, riwayatArray, kepemilikanArray)
-        time.sleep(1)
-    #read_csv(args.folderName)
-    #py main.py -folderName ./eksperimen/user.csv
-else:
-    printWarning('Folder tidak diberikan', width)
-    #quit()
-##############################
+        printWarning('Folder tidak diberikan')
+        #quit()
+    ##############################
 
 
-isFinished = False
-while not isFinished:
-    #header
-    header(width)
-    print()
-    ###################################################
-    #print(register(truePath))
-    name, username, password = RegisterPage()
-    make_csv(truePath, 'user', 0, name, username, password, 4000)
+    finished = False
+    while not finished:
+        clearScreen()
+        currentAnswer : str = ''
+        #header
+        header()
+        print()
+        ###################################################
+        
+        if sessionAccount[0] == '':
+            name = username = password = ''
+            currentAnswer = LandingPage() # login, register, exit
+            if currentAnswer == 1:
+                LoginPage()
+            elif currentAnswer == 2:
+                name, username, password = RegisterPage()
+            else:
+                exit(folderPath, userArray)
+                finished = True
+            sessionAccount = username, name, 0      
+            userArray = append_array(userArray, 0, name, username, password, 4000)
+        else :
+            dummiinput = MainMenu(sessionAccount)
+            if dummiinput == 'help':
+                help()
+            elif dummiinput == 'put' :
+                (u, n, p) = (input('u '), input('n '), input('p '))
+                userArray = append_array(folderPath, 'user', 1, u, n, p, 2000)
+            elif dummiinput == 'exit':
+                exit(folderPath, userArray)
+                clearScreen()
+                finished = True
 
-    ########################################
-    printCenter('Main Menu', width)
+        ########################################
+        
+        # list of menus to choose
+        #1
+        #2
 
-    # account info
-    printRight('Account', width)
-    print()
+        # choice prompt
+        printCenter()
 
-    mainChoices()
-    print()
-    dummiinput = input('Masukkan perintah : ')
-    if dummiinput == 'save':
-        Save(input())
-        print('saving ...')
-    elif dummiinput == 'help':
-        help()
-    elif dummiinput == 'put' :
-        (u, n, p) = (input('u '), input('n '), input('p '))
-        make_csv(truePath, 'user', 1, u, n, p, 2000)
-    elif dummiinput == 'exit':
-        exit()
-        isFinished = True
-    # list of menus to choose
-    #1
-    #2
 
-    # choice prompt
-    printCenter()
+if __name__ == '__main__':
+    main()

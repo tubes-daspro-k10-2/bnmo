@@ -53,9 +53,3 @@ def lcgInt(minInt : int = 0, maxInt : int = 1) -> int:
 
 def lerp(a, b, t)   :
     return (t*(b-a)+a)
-
-
-def mergelist(list1 : list[any], list2 : any) -> list[any] :
-    listinlist = [list2]
-    mergedlist = list1 + listinlist
-    return mergedlist

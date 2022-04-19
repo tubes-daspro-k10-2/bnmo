@@ -1,6 +1,5 @@
 # save
-import os
-from utils_file import *
+from utility.utils_file import folderExist, createFolder
 # def folderExist(folderArg : str) -> bool :
 #     for (root, dirs, files) in os.walk(folderArg, topdown=True):
 #         if root == folderArg:
@@ -17,5 +16,4 @@ def Save(folderArg : str):
     if folderExist(folderArg):
         pass
     else: #folder doesnt exist
-        os.makedirs(folderArg)
-        print(folderArg, 'created.')
+        createFolder(folderArg)
