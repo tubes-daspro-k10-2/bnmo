@@ -32,7 +32,7 @@ def read_csv(folderPath : str, fileName : str) -> list[str]:
 
     return resultArray
 
-def append_array(arr : list, toAppend : list) -> list:
+def append_array(arr : list, toAppend : list, konso : bool = True) -> list:
     # newData : list = [str(i) for i in values]
     
     if arr == [] or getLength(arr[0]) != getLength(toAppend):
@@ -42,9 +42,12 @@ def append_array(arr : list, toAppend : list) -> list:
     #     newData += str(values[i])
     #     if i+1 != len(values) :
     #         newData += ';'
-    arr += [toAppend] # sub array
+    if konso:
+        arr = arr + [toAppend] # sub array
+    else:
+        arr = [toAppend] + arr
     
-    arr = update_array(arr)
+    # arr = update_array(arr) # removed it in now
     print(arr)
     #print('util file', arr)#
 
@@ -100,6 +103,9 @@ def list_to_csv(content : list) -> str:
 def save_csv(folderPath : str, fileName : str, content : list[str]):
     # print(folderPath, fileName)
     # print(getLength(content))
+    if fileName != 'game':
+        content = update_array(content)
+
     for i in range(getLength(content)):
         content[i] = list_to_csv(content[i])
 

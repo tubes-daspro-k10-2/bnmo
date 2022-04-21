@@ -70,7 +70,7 @@ def tambah_game(gameArray : list) -> list:
     while (not valid):
         print()
     #========INPUT DATA GAME BARU===========================
-        
+
         try:
             nama = input("Masukkan nama game : ")
             kategori = input("Masukkan kategori : ")
@@ -87,12 +87,13 @@ def tambah_game(gameArray : list) -> list:
 
     #========== ID GAME BARU=============
     idn = ''
-    if (getLength(gameArray)<10):
-        idn = "GAME00"+str(getLength(gameArray))
-    elif (getLength(gameArray)<100 and getLength(gameArray)>=10):
-        idn = "GAME0"+str(getLength(gameArray))
+    id = getLength(gameArray)+1
+    if (id<10):
+        idn = "GAME00"+str(id)
+    elif (id<100 and id>=10):
+        idn = "GAME0"+str(id)
     else:
-        idn = "GAME"+str(getLength(gameArray))
+        idn = "GAME"+str(id)
     #================MENAMBAHKAN DATA GAME BARU KE ARRAY==============
     baru = [idn,nama,kategori,tahun_rilis,harga,stok]
     # temp = [0 for i in range (getLength(gameArray)+1)]
@@ -104,6 +105,39 @@ def tambah_game(gameArray : list) -> list:
     gameArray = append_array(gameArray, baru)
     #sukses ditambahkan
     print("Selamat! Berhasil menambahkan game ",nama,".")
+    return gameArray
+
+#f05
+def ubah_game(gameArray : list) -> list:
+    #==============MENCARI GAME DENGAN ID GAME================
+    valid_id = False
+    n = 0 #deklarasi elemen
+    while (not valid_id):
+        idn = input("Masukkan ID game :")
+        for i in range (getLength(gameArray)):
+            if (idn==gameArray[i][0]):  #id berada di urutan 1  pada array game
+                valid_id = True
+                n = i
+        if (not valid_id):
+            print("ID GAME tidak terdaftar. Ulangi!")
+            
+    #========UBAH DATA GAME BARU===========================
+    nama = input("Masukkan nama game : ")
+    if (nama != ""):
+        gameArray[n][1] = nama
+    kategori = input("Masukkan kategori : ")
+    if (kategori != ""):
+        gameArray[n][2] = kategori
+    tahun_rilis = input("Masukkan tahun rilis : ")
+    if (tahun_rilis != ""):
+        gameArray[n][3] = tahun_rilis
+    harga = input("Masukkan harga: ")
+    if (harga != ""):
+        gameArray[n][4] = harga
+    print(gameArray[n])
+    #perintah sukses
+    print("Selamat! Berhasil mengubah game ", gameArray[n][1],".")
+
     return gameArray
 
 #f14

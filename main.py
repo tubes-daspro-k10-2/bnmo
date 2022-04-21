@@ -10,7 +10,7 @@ from front.ui import LoginPage, RegisterPage, header, RegisterPage, LandingPage,
 
 from constants import emptySessionAccount
 
-from body.function_main import register, login, tambah_game, help , Load, Save, exit
+from body.function_main import register, login, tambah_game, ubah_game, help , Load, Save, exit
 
 #from f02 import register
 #from f14 import help
@@ -86,6 +86,8 @@ def main():
                     userArray = register(userArray, name, username, password)
                 elif choiceAnswer == 2:
                     gameArray = tambah_game(gameArray)
+                elif choiceAnswer == 3:
+                    gameArray = ubah_game(gameArray)
                 # elif choiceAnswer == 'put' :
                 #     (u, n, p) = (input('u '), input('n '), input('p '))
                 #     userArray = append_array(folderPath, ['user', 1, u, n, p, 2000])
