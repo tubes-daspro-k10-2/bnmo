@@ -62,6 +62,50 @@ def login(userArray : list, username : str, password : str) -> list[str, str, st
 
     return emptySessionAccount
 
+#f04
+def tambah_game(gameArray : list) -> list:
+    #g.login = True
+    #g.role = "Admin"
+    valid = False
+    while (not valid):
+        print()
+    #========INPUT DATA GAME BARU===========================
+        
+        try:
+            nama = input("Masukkan nama game : ")
+            kategori = input("Masukkan kategori : ")
+            tahun_rilis = int(input("Masukkan tahun rilis : "))
+            harga = int(input("Masukkan harga: "))
+            stok = int(input("Masukkan stok : "))
+        except:
+            print('\nMohon masukkan informasi yang sesuai.')
+        else:    
+            if (nama!="" and kategori!="" and tahun_rilis>=0 and harga>=0 and stok > 0):
+                valid = True
+            else:
+                print("\nMohon masukkan semua informasi mengenai game dengan benar agar dapat disimpan BNMO.")
+
+    #========== ID GAME BARU=============
+    idn = ''
+    if (getLength(gameArray)<10):
+        idn = "GAME00"+str(getLength(gameArray))
+    elif (getLength(gameArray)<100 and getLength(gameArray)>=10):
+        idn = "GAME0"+str(getLength(gameArray))
+    else:
+        idn = "GAME"+str(getLength(gameArray))
+    #================MENAMBAHKAN DATA GAME BARU KE ARRAY==============
+    baru = [idn,nama,kategori,tahun_rilis,harga,stok]
+    # temp = [0 for i in range (getLength(gameArray)+1)]
+    # for i in range (getLength(gameArray)):
+    #     temp[i] = gameArray[i]
+    # temp[getLength(gameArray)] = baru
+    # gameArray = temp
+
+    gameArray = append_array(gameArray, baru)
+    #sukses ditambahkan
+    print("Selamat! Berhasil menambahkan game ",nama,".")
+    return gameArray
+
 #f14
 def help():
     printWarning('HELP MESSAGE', 100)
@@ -92,16 +136,23 @@ def Load(folderArg : str) -> tuple[list, list, list, list]:
     return (userArr, gameArr, riwayatArr, kepemilikanArr) # tuple, be careful
 
 #f16
-def Save(folderArg : str, userArray : list):
+def Save(folderArg : str, userArray : list, gameArray : list, riwayatArray : list, kepemilikanArray : list):
     #folderArg = './'+ folderArg +'/' # is alr made ./{}/
     
     if folderExist(folderArg):
         save_csv(folderArg, 'user', userArray)
+        save_csv(folderArg, 'game', gameArray)
+        save_csv(folderArg, 'riwayat', riwayatArray)
+        save_csv(folderArg, 'kepemilikan', kepemilikanArray)
     else: #folder doesnt exist
         createFolder(folderArg)
+        save_csv(folderArg, 'user', userArray)
+        save_csv(folderArg, 'game', gameArray)
+        save_csv(folderArg, 'riwayat', riwayatArray)
+        save_csv(folderArg, 'kepemilikan', kepemilikanArray)
 
 #f17
-def exit(folderPath : str, userArray : list):
+def exit(folderPath : str, userArray : list, gameArray : list, riwayatArray : list, kepemilikanArray : list):
     # local function
     def isYes(answer : str) :
         if answer == 'y' or answer == 'Y':
@@ -124,6 +175,6 @@ def exit(folderPath : str, userArray : list):
                 inputDone = True
 
     if isYes(ans):
-        Save(folderPath, userArray)
+        Save(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
 
     

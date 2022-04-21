@@ -10,7 +10,7 @@ from front.ui import LoginPage, RegisterPage, header, RegisterPage, LandingPage,
 
 from constants import emptySessionAccount
 
-from body.function_main import register, login, help , Load, Save, exit
+from body.function_main import register, login, tambah_game, help , Load, Save, exit
 
 #from f02 import register
 #from f14 import help
@@ -40,6 +40,7 @@ def main():
         if(not folderExist(folderPath)):
             printWarning(f'folder "{args.folderName}" tidak ditemukan')
             time.sleep(1)
+            quit()
         else:
             userArray, gameArray, riwayatArray, kepemilikanArray = Load(folderPath)
             print('load result :', userArray, gameArray, riwayatArray, kepemilikanArray) # hapus ini
@@ -48,7 +49,7 @@ def main():
         #py main.py -folderName ./eksperimen/user.csv
     else:
         printWarning('Folder tidak diberikan')
-        #quit()
+        quit()
     ##############################
 
 
@@ -67,11 +68,10 @@ def main():
             if choiceAnswer == 1:
                 username, password = LoginPage()
                 sessionAccount = login(userArray, username, password)
-
             # elif currentAnswer == 2:
             #     name, username, password = RegisterPage()
             else: # 2
-                exit(folderPath, userArray)
+                exit(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                 finished = True
             #sessionAccount = username, name, 0      
             #userArray = append_array(userArray, 0, name, username, password, 4000)
@@ -84,18 +84,20 @@ def main():
                 if choiceAnswer == 1 :
                     name, username, password = RegisterPage()
                     userArray = register(userArray, name, username, password)
+                elif choiceAnswer == 2:
+                    gameArray = tambah_game(gameArray)
                 # elif choiceAnswer == 'put' :
                 #     (u, n, p) = (input('u '), input('n '), input('p '))
                 #     userArray = append_array(folderPath, ['user', 1, u, n, p, 2000])
                 elif choiceAnswer == 9:
-                    Save(folderPath, userArray)
+                    Save(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                 elif choiceAnswer == 10:
-                    exit(folderPath, userArray)
+                    exit(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                     clearScreen()
                     finished = True
             else:
                 if choiceAnswer == 10:
-                    exit(folderPath, userArray)
+                    exit(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                     clearScreen()
                     finished = True
 
