@@ -55,6 +55,7 @@ def main():
 
     finished = False
     while not finished:
+        
         #clearScreen()
         choiceAnswer : str = ''
         #header

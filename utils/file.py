@@ -103,30 +103,33 @@ def list_to_csv(content : list) -> str:
 def save_csv(folderPath : str, fileName : str, content : list[str]):
     # print(folderPath, fileName)
     # print(getLength(content))
+    
     if fileName != 'game':
         content = update_array(content)
 
-    for i in range(getLength(content)):
-        content[i] = list_to_csv(content[i])
+    newContent = ['' for i in content] # empty list
+
+    for i in range(getLength(newContent)):
+        newContent[i] = list_to_csv(content[i])
 
     if fileName == 'user':
-        content = [usercsvHeader] + content
+        newContent = [usercsvHeader] + newContent
     elif fileName == 'game':
-        content = [gamecsvHeader] + content
+        newContent = [gamecsvHeader] + newContent
     elif fileName == 'riwayat':
-        content = [riwayatcsvHeader] + content
+        newContent = [riwayatcsvHeader] + newContent
     else: #fileName == 'kepemilikan':
-        content = [kepemilikancsvHeader] + content
+        newContent = [kepemilikancsvHeader] + newContent
 
-    print('filepy', content)
+    print('filepy', newContent)
 
     with open(str(folderPath)+str(fileName)+'.csv', 'w+') as f:
         # print(getlength(content))
-        for i in range(getLength(content)):
+        for i in range(getLength(newContent)):
             # print(content[i], getLength(content))
             # print(i)
-            f.write(content[i])
-            if i+1 < getLength(content):
+            f.write(newContent[i])
+            if i+1 < getLength(newContent):
                 f.write('\n')
 
 

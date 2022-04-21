@@ -3,6 +3,8 @@ from utils.ui import printWarning
 from utils.user import isUsernameValid
 from utils.main import getLength
 
+from body.function_cipher import encrypt, decrypt
+
 from constants import emptySessionAccount
 
 #f02
@@ -31,7 +33,10 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
     
     #======================TAMBAHKAN DATA BARU===================
     idn = getLength(userArray)
-    baru = [str(idn),username,nama,password,"user",0] #id,username,name,password,role,saldo
+
+    hashedPassword = encrypt(password) ## cipher
+
+    baru = [str(idn),username,nama,hashedPassword,"user",0] #id,username,name,password,role,saldo
     # temp = [0 for i in range (getLength(userArray)+1)]
     # for i in range (getLength(userArray)):
     #     temp[i] = userArray[i]
@@ -47,10 +52,13 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
 
 #f03
 def login(userArray : list, username : str, password : str) -> list[str, str, str, str]:
+    hashedPassword = encrypt(password)
+    print('has', hashedPassword)
+    print('unhas', decrypt(hashedPassword))
     ada = False
     i=0
     while ((not ada) and i < getLength(userArray)):
-        if (userArray[i][1] == username and userArray[i][3]==password):
+        if (userArray[i][1] == username and userArray[i][3]==hashedPassword):
             print("\nHalo ", username, "! Selamat datang di Binomo.")
             ada = True
             
