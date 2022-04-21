@@ -1,5 +1,5 @@
 from utils.main import isGenap, getLength
-from constants import defaultScreenWidth, allowedUsernamecharacter
+from constants import defaultScreenWidth, defaultAllowedCharacter
 from os import system, name
 
 ################## INPUT #######################
@@ -14,11 +14,11 @@ def inputCenter(maxLen : int = 20, screenWidth : int = defaultScreenWidth, space
     else:
         return input(int((diff+1)/2) * space)
 
-def inputValidated(text : str = '', validInput : list = allowedUsernamecharacter) -> str:
+def inputValidated(text : str = '', validInput : list = defaultAllowedCharacter) -> str:
     finished = False
     while not finished:
         try:
-            ans = input(text)
+            ans = str(input(text))
         except:
             pass
 

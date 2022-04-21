@@ -2,15 +2,16 @@
 #     data[0] : user.csv
 #     data[1] : game.csv
 
-import variabelGlobal as g
-from load import *
+import f2f5.variabelGlobal as g
+#from f2f5.load import *
 
 def login(data):
     if (g.login):
         print("Anda telah login")
-        return;
+        return
     else:
-        user=data[0]
+        user=data
+        print(user)
         username = input("Masukan username: ")
         password = input("Masukan password: ")
 
@@ -35,5 +36,7 @@ def login(data):
             print("\nMasukan username atau password salah atau tidak ditemukan")
 
 #data = load('eksternal')
-#login(data)
+import utils.file
+data = utils.file.read_csv('./data/', 'user')
+login(data)
 #login(data)

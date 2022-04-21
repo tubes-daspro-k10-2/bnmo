@@ -1,6 +1,7 @@
 import os
-from f02 import getlength
 from utils.main import split, getLength
+from utils.ui import printWarning
+from constants import usercsvHeader
 
 def folderExist(folderArg : str) -> bool :
     for (root, dirs, files) in os.walk(folderArg, topdown=True):
@@ -18,34 +19,38 @@ def read_csv(folderPath : str, fileName : str) -> list[str]:
     with open(str(folderPath)+str(fileName)+'.csv') as f:
         file = f.read()
         #print(file)
+        
+        file = split(file, '\n')
 
-        for i in split(file, '\n'): # split by escape character '\n'
-            if i != '': # solusi sementara, need some nganu like strip or sth
-                resultArray += [i]
+        for i in range(getLength(file)): # split by escape character '\n'
+            if i != 0: # solusi sementara, need some nganu like strip or sth
+                resultArray += [file[i]]
 
     for i in range(getLength(resultArray)):
         resultArray[i] = split(resultArray[i], ';')
 
     return resultArray
 
-def append_array(arr : list, *values) -> list:
-    newData : list = [str(i) for i in values]
+def append_array(arr : list, toAppend : list) -> list:
+    # newData : list = [str(i) for i in values]
+    if getLength(arr[0]) != getLength(toAppend):
+        printWarning('DIFFERENT LIST SIZE')
     #print(type(arr), type(newData))
     # for i in range(len(values)):
     #     newData += str(values[i])
     #     if i+1 != len(values) :
     #         newData += ';'
-    arr += [newData] # sub array
-
+    arr += [toAppend] # sub array
+    
     arr = update_array(arr)
-
+    print(arr)
     #print('util file', arr)#
 
     return arr
 
 def update_array(arr: list) -> list:
     for i in range(getLength(arr)):
-        arr[i][0] = i
+        arr[i][0] = i+1
 
     return arr
 
@@ -95,6 +100,9 @@ def save_csv(folderPath : str, fileName : str, content : list[str]):
     # print(getLength(content))
     for i in range(getLength(content)):
         content[i] = list_to_csv(content[i])
+
+    content = [usercsvHeader] + content
+    print('filepy', content)
 
     with open(str(folderPath)+str(fileName)+'.csv', 'w+') as f:
         # print(getlength(content))

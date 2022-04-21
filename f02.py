@@ -2,8 +2,8 @@
 #     data[0] : user.csv
 #     data[1] : game.csv
 
-import variabelGlobal as g
-from variabelGlobal import len
+import f2f5.variabelGlobal as g
+from f2f5.variabelGlobal import len
 
 def valid_user(s):
     for i in s:
@@ -11,7 +11,6 @@ def valid_user(s):
             continue
         else:
             return False
-            break
     return True
     
 
@@ -21,7 +20,7 @@ def register(data):
     #g.role = "Admin"
     if (not g.login):
         print('Maaf, anda harus login terlebih dahulu untuk mengirim perintah selain "login".')
-        return;
+        return
     else:
         if (g.role != "Admin"):
             print("\nMaaf, hanya role admin yang dapat mengirim perintah ini.")
@@ -59,4 +58,6 @@ def register(data):
             print("\nUsername ",username,' telah berhasil register ke dalam "Binomo"')
 
 #data = load('eksternal')
-#register(data)
+import utils.file
+data = utils.file.read_csv('./data/', 'user')
+register(data)

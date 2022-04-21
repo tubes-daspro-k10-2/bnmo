@@ -4,14 +4,15 @@ import time
 #from utils import 
 from utils.ui import printWarning, printRight, printCenter, clearScreen
 from utils.file import append_array, folderExist # move it to save
+from utils.user import isAdmin
 
-from front.ui import LoginPage, header, RegisterPage, LandingPage, MainMenu
+from front.ui import LoginPage, RegisterPage, header, RegisterPage, LandingPage, MainMenu
 
-import constants
+from constants import emptySessionAccount
 
-from body.function_main import help ,Load, Save, exit
+from body.function_main import register, login, help , Load, Save, exit
 
-from f02 import register
+#from f02 import register
 #from f14 import help
 #from f15 import Load
 #from f16 import Save
@@ -19,16 +20,17 @@ from f02 import register
 
 ######## PARSER ##########
 import argparse
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument('folderName', nargs='?')
 args = parser.parse_args()
 #print(args.echo)
 
 def main():
-    sessionAccount = ['','',] #username, name, saldo
+    sessionAccount = emptySessionAccount #username, name, saldo, role
     folderPath = ''
 
-    print(args)
     if args.folderName != None :
         folderPath = './'+str(args.folderName)+'/'
         printCenter('Loading ...')
@@ -52,36 +54,50 @@ def main():
 
     finished = False
     while not finished:
-        clearScreen()
-        currentAnswer : str = ''
+        #clearScreen()
+        choiceAnswer : str = ''
         #header
         header()
         print()
         ###################################################
-        
+        name = username = password = ''
+        # Belum memiliki sesi login akun
         if sessionAccount[0] == '':
-            name = username = password = ''
-            currentAnswer = LandingPage() # login, register, exit
-            if currentAnswer == 1:
-                LoginPage()
-            elif currentAnswer == 2:
-                name, username, password = RegisterPage()
-            else:
+            choiceAnswer = LandingPage() # login, register, exit
+            if choiceAnswer == 1:
+                username, password = LoginPage()
+                sessionAccount = login(userArray, username, password)
+
+            # elif currentAnswer == 2:
+            #     name, username, password = RegisterPage()
+            else: # 2
                 exit(folderPath, userArray)
                 finished = True
-            sessionAccount = username, name, 0      
-            userArray = append_array(userArray, 0, name, username, password, 4000)
+            #sessionAccount = username, name, 0      
+            #userArray = append_array(userArray, 0, name, username, password, 4000)
+
+            print(sessionAccount)
+            #exit(folderPath, userArray)
         else :
-            dummiinput = MainMenu(sessionAccount)
-            if dummiinput == 'help':
-                help()
-            elif dummiinput == 'put' :
-                (u, n, p) = (input('u '), input('n '), input('p '))
-                userArray = append_array(folderPath, 'user', 1, u, n, p, 2000)
-            elif dummiinput == 'exit':
-                exit(folderPath, userArray)
-                clearScreen()
-                finished = True
+            choiceAnswer = MainMenu(sessionAccount)
+            if isAdmin(sessionAccount):
+                if choiceAnswer == 1 :
+                    name, username, password = RegisterPage()
+                    userArray = register(userArray, name, username, password)
+                # elif choiceAnswer == 'put' :
+                #     (u, n, p) = (input('u '), input('n '), input('p '))
+                #     userArray = append_array(folderPath, ['user', 1, u, n, p, 2000])
+                elif choiceAnswer == 9:
+                    Save(folderPath, userArray)
+                elif choiceAnswer == 10:
+                    exit(folderPath, userArray)
+                    clearScreen()
+                    finished = True
+            else:
+                if choiceAnswer == 10:
+                    exit(folderPath, userArray)
+                    clearScreen()
+                    finished = True
 
         ########################################
         
