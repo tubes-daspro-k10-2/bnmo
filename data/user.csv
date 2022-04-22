@@ -1,8 +1,9 @@
-0;username;name;password;role;saldo
+id;username;name;password;role;saldo
 1;fkhap;fakih;aHst0gpy;admin;99999
 2;newuser;userbaru;iRzhPRGgpy;user;0
 3;min;minangdeng;Z1igpy;user;0
 4;cekhaskiloveyou;cekhash;-RHstP1QrqRFrh;user;0
 5;de;debuguser;IRgp;user;-2019
-6;su;sugihman;Phg;user;995319999
+6;su;sugihman;Phg;user;990639996
 7;klo12;kaloooo;HrHr;user;900000
+8;m;m;Z;user;1

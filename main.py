@@ -3,14 +3,14 @@ import time
 
 #from utils import 
 from utils.ui import printWarning, printRight, printCenter, clearScreen
-from utils.file import append_array, folderExist # move it to save
-from utils.user import isAdmin
+from utils.file import append_array, folderExist, getIndexByName # move it to save
+from utils.user import getSessionAccount, isAdmin
 
 from front.ui import LoginPage, RegisterPage, header, RegisterPage, LandingPage, MainMenu
 
 from constants import emptySessionAccount
 
-from body.function_main import register, login, tambah_game, ubah_game, ubah_stok, list_game_toko, buy_game, help , Load, Save, exit
+from body.function_main import register, login, tambah_game, ubah_game, ubah_stok, list_game_toko, buy_game, list_game, help , Load, Save, exit
 
 #from f02 import register
 #from f14 import help
@@ -28,7 +28,7 @@ args = parser.parse_args()
 #print(args.echo)
 
 def main():
-    sessionAccount = emptySessionAccount #username, name, saldo, role
+    sessionAccount = emptySessionAccount #username, name, saldo, role, id
     folderPath = ''
 
     if args.folderName != None :
@@ -81,6 +81,8 @@ def main():
             #exit(folderPath, userArray)
         else :
             choiceAnswer = MainMenu(sessionAccount)
+            
+
             if isAdmin(sessionAccount):
                 if choiceAnswer == 1 :
                     name, username, password = RegisterPage()
@@ -93,6 +95,12 @@ def main():
                     gameArray = ubah_stok(gameArray)
                 elif choiceAnswer == 5:
                     gameArray = list_game_toko(gameArray)
+                elif choiceAnswer == 6:
+                    print()
+                elif choiceAnswer == 7:
+                    print()
+                elif choiceAnswer == 8:
+                    print()
                    
                 # elif choiceAnswer == 'put' :
                 #     (u, n, p) = (input('u '), input('n '), input('p '))
@@ -105,9 +113,21 @@ def main():
                     finished = True
             else:
                 if choiceAnswer == 1:
-                    gameArray = list_game_toko(gameArray)
+                    list_game_toko(gameArray)
                 elif choiceAnswer == 2:
-                    gameArray, kepemilikanArray, userArray = buy_game(gameArray, kepemilikanArray, userArray, 16521312) 
+                    gameArray, kepemilikanArray, userArray = buy_game(gameArray, kepemilikanArray, userArray, sessionAccount[4]) 
+                elif choiceAnswer == 3:
+                    list_game(gameArray, kepemilikanArray, sessionAccount[4])
+                elif choiceAnswer == 4:
+                    print()
+                elif choiceAnswer == 5:
+                    print()
+                elif choiceAnswer == 6:
+                    print()
+                elif choiceAnswer == 7:
+                    print()
+                elif choiceAnswer == 8:
+                    print()
                 elif choiceAnswer == 9:
                     Save(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                 elif choiceAnswer == 10:
@@ -115,6 +135,7 @@ def main():
                     clearScreen()
                     finished = True
 
+            sessionAccount = getSessionAccount(userArray, sessionAccount[0])
         ########################################
         
         # list of menus to choose

@@ -6,9 +6,9 @@ defaultAllowedCharacter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
 
 defaultScreenWidth = 100
 
-emptySessionAccount = ['','','', '']
+emptySessionAccount = ['','','', '', ''] #username, name, saldo, role, id
 
-usercsvHeader = '0;username;name;password;role;saldo'
-gamecsvHeader = '0;id;nama;kategori;tahun_rilis;harga;stok'
-kepemilikancsvHeader = '0;game_id;user_id'
-riwayatcsvHeader = '0;game_id;nama;harga;user_id;tahun_beli'
+usercsvHeader = ['id', 'username', 'name', 'password', 'role', 'saldo']
+gamecsvHeader = ['id', 'nama', 'kategori', 'tahun_rilis', 'harga', 'stok']
+kepemilikancsvHeader = ['game_id', 'user_id']
+riwayatcsvHeader = ['game_id', 'nama', 'harga', 'user_id', 'tahun_beli']

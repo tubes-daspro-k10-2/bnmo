@@ -14,7 +14,7 @@ def printAccount(sessionAccount : list):
 def userChoices():
     print(' 1. list_game_toko')
     print(' 2. beli_game')
-    print(' 3. lihat_game_toko')
+    print(' 3. lihat_game_dimiliki')
     print(' 4. cari_game_dimiliki')
     print(' 5. cari_game_toko')
     print(' 6. riwayat_pembelian')

@@ -53,41 +53,21 @@ def append_array(arr : list, toAppend : list, konso : bool = True) -> list:
 
     return arr
 
-def update_array(arr: list) -> list:
+def update_array(arr: list, fileName : str) -> list:
     for i in range(getLength(arr)):
-        arr[i][0] = i+1
+        #arr[i][0] = i+1
+        pass
+    
+    if fileName == 'user':
+        arr = [usercsvHeader] + arr
+    elif fileName == 'game':
+        arr = [gamecsvHeader] + arr
+    elif fileName == 'riwayat':
+        arr = [riwayatcsvHeader] + arr
+    else: #fileName == 'kepemilikan':
+        arr = [kepemilikancsvHeader] + arr
 
     return arr
-
-
-# def append_array(path : str, fileName : str, *values) -> list:
-#     data = read_csv(path, fileName)
-#     newData : list = [str(i) for i in values]
-    
-#     print(data) #
-#     # for i in range(len(values)):
-#     #     newData += str(values[i])
-#     #     if i+1 != len(values) :
-#     #         newData += ';'
-#     data += [newData]
-
-#     print(data)#
-
-#     return data
-
-#need revamp
-# def make_csv(path : str, fileName : str, *values):
-#     data = read_csv(path, fileName)
-#     newData : str = ''
-
-#     for i in range(len(values)):
-#         newData += str(values[i])
-#         if i+1 != len(values) :
-#             newData += ';'
-#     data += [newData]
-    
-#     save_csv(path, fileName, data)
-    #update_csv(path)
 
 def list_to_csv(content : list) -> str:
     newCsvLine : str = ''
@@ -104,21 +84,14 @@ def save_csv(folderPath : str, fileName : str, content : list[str]):
     # print(folderPath, fileName)
     # print(getLength(content))
     
-    content = update_array(content)
+    content = update_array(content, fileName)
 
     newContent = ['' for i in content] # empty list
 
     for i in range(getLength(newContent)):
         newContent[i] = list_to_csv(content[i])
 
-    if fileName == 'user':
-        newContent = [usercsvHeader] + newContent
-    elif fileName == 'game':
-        newContent = [gamecsvHeader] + newContent
-    elif fileName == 'riwayat':
-        newContent = [riwayatcsvHeader] + newContent
-    else: #fileName == 'kepemilikan':
-        newContent = [kepemilikancsvHeader] + newContent
+    
 
     print('filepy', newContent)
 
@@ -131,37 +104,21 @@ def save_csv(folderPath : str, fileName : str, content : list[str]):
             if i+1 < getLength(newContent):
                 f.write('\n')
 
-
-
-
+def getIndexByName(indexName : str, fileName : str) -> int:
+    if fileName == 'user':
+        for i in range(getLength(usercsvHeader)):
+            if indexName == usercsvHeader[i]:
+                return i
+    elif fileName == 'game':
+        for i in range(getLength(gamecsvHeader)):
+            if indexName == gamecsvHeader[i]:
+                return i
+    elif fileName == 'riwayat':
+        for i in range(getLength(riwayatcsvHeader)):
+            if indexName == riwayatcsvHeader[i]:
+                return i
+    else: #fileName == 'kepemilikan':
+        for i in range(getLength(kepemilikancsvHeader)):
+            if indexName == kepemilikancsvHeader[i]:
+                return i
         
-
-# def parse(path : str) -> list :
-#     # array dengan anggota string tiap baris
-#     lines : list[str] = readlines(path)
-
-#     # definisi key dictionary
-#     keys = split(getListHead(lines), ';')
-
-#     # definisi tiap value yang ada pada key dan buat dictionary
-#     tail = getListTail(lines)
-    
-#     dicts = []
-
-#     for i in range(len(tail)):
-#         values = split(tail[i], ';')
-
-#         dicts += [tokenize(keys, values)]
-
-#     return dicts
-
-def parse(path : str) -> list :
-    lines : list[str] = read_csv(path)
-
-    for i in range(getLength(lines)):
-        lines[i] = split(lines[i], ';')
-        
-    return lines
-
-#known error : read buat 1 baris yang ga jelas, by excel si
-#print(read_csv('./eksperimen/user.csv'))
