@@ -1,4 +1,5 @@
-0;id;nama;kategori;tahun_rilis;harga;;stok
-GAME001;Arknights;Tower Defense;2019;0;23
-GAME002;Super Mario;Platformer;2017;1890000;123
-GAME003;Elden ring;RPG;2022;900000;921
+0;id;nama;kategori;tahun_rilis;harga;stok
+1;GAME001;Arknights;Tower Defense;2019;0;112
+2;GAME002;Chess 3D;Platformer;2017;1890000;121
+3;GAME003;Elden ring;RPG;2022;900000;920
+4;GAME004;PvZ;Tower Defense;2009;0;18

@@ -10,7 +10,7 @@ from front.ui import LoginPage, RegisterPage, header, RegisterPage, LandingPage,
 
 from constants import emptySessionAccount
 
-from body.function_main import register, login, tambah_game, ubah_game, help , Load, Save, exit
+from body.function_main import register, login, tambah_game, ubah_game, ubah_stok, list_game_toko, buy_game, help , Load, Save, exit
 
 #from f02 import register
 #from f14 import help
@@ -89,6 +89,11 @@ def main():
                     gameArray = tambah_game(gameArray)
                 elif choiceAnswer == 3:
                     gameArray = ubah_game(gameArray)
+                elif choiceAnswer == 4:
+                    gameArray = ubah_stok(gameArray)
+                elif choiceAnswer == 5:
+                    gameArray = list_game_toko(gameArray)
+                   
                 # elif choiceAnswer == 'put' :
                 #     (u, n, p) = (input('u '), input('n '), input('p '))
                 #     userArray = append_array(folderPath, ['user', 1, u, n, p, 2000])
@@ -99,7 +104,13 @@ def main():
                     clearScreen()
                     finished = True
             else:
-                if choiceAnswer == 10:
+                if choiceAnswer == 1:
+                    gameArray = list_game_toko(gameArray)
+                elif choiceAnswer == 2:
+                    gameArray, kepemilikanArray, userArray = buy_game(gameArray, kepemilikanArray, userArray, 16521312) 
+                elif choiceAnswer == 9:
+                    Save(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
+                elif choiceAnswer == 10:
                     exit(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                     clearScreen()
                     finished = True

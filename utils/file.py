@@ -104,8 +104,7 @@ def save_csv(folderPath : str, fileName : str, content : list[str]):
     # print(folderPath, fileName)
     # print(getLength(content))
     
-    if fileName != 'game':
-        content = update_array(content)
+    content = update_array(content)
 
     newContent = ['' for i in content] # empty list
 

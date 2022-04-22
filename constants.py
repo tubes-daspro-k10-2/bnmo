@@ -9,6 +9,6 @@ defaultScreenWidth = 100
 emptySessionAccount = ['','','', '']
 
 usercsvHeader = '0;username;name;password;role;saldo'
-gamecsvHeader = '0;id;nama;kategori;tahun_rilis;harga;;stok'
+gamecsvHeader = '0;id;nama;kategori;tahun_rilis;harga;stok'
 kepemilikancsvHeader = '0;game_id;user_id'
 riwayatcsvHeader = '0;game_id;nama;harga;user_id;tahun_beli'
