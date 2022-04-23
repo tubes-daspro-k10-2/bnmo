@@ -4,6 +4,8 @@ from os import system, name
 
 ################## INPUT #######################
 def inputCenter(maxLen : int = 20, screenWidth : int = defaultScreenWidth, space : str = ' ') -> str:
+    # fungsi untuk meminta masukan dengan menengahkan kolom masukan
+
     diff = screenWidth - maxLen
     
     if maxLen > screenWidth :
@@ -15,6 +17,8 @@ def inputCenter(maxLen : int = 20, screenWidth : int = defaultScreenWidth, space
         return input(int((diff+1)/2) * space)
 
 def inputValidated(text : str = '', validInput : list = defaultAllowedCharacter) -> str:
+    # fungsi untuk meminta masukan dengan membatasi masukan hanya boleh anggota validInput
+
     finished = False
     while not finished:
         try:
@@ -55,6 +59,7 @@ def printRight(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = defaul
     print(diff*space + text)
 
 def printBlock(char : str = '#', screenWidth : int = defaultScreenWidth):
+    # fungsi untuk mengblock satu baris dengan karakter yang dimasukkan
     print(char*screenWidth)
 
 def printWarning(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = defaultScreenWidth, space : str = ' '):
@@ -78,13 +83,16 @@ def printWarning(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = defa
     print()
 
 def clearScreen():
-    if name == 'nt':
+    # fungsi untuk membersihkan layar
+
+    if name == 'nt': # merupakan sistem windows
         _ = system('cls')
   
-    else:
+    else:           # bukan sistem windows
         _ = system('clear')
 
 
+# DI BAWAH INI JANGAN DULU
 def getBoxUI(*boxLen : int, limiter : str = '|') -> str:
     limiter = '|'
     result = limiter
@@ -92,5 +100,3 @@ def getBoxUI(*boxLen : int, limiter : str = '|') -> str:
         result += '{:^i}' + limiter
 
     return result
-
-print(getBoxUI(1,3,4, 9))

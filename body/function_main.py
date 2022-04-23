@@ -1,6 +1,6 @@
 import time
 
-from utils.file import append_array, read_csv, folderExist, createFolder, save_csv, getIndexByName, isKepemilikanKosong
+from utils.file import append_array, read_csv, folderExist, createFolder, save_csv, getIndexByName
 from utils.ui import printWarning
 from utils.user import isUsernameValid
 from utils.main import getLength
@@ -384,6 +384,16 @@ def search_my_game(listgame,listkepemilikan,userid):
     
     ada = False
     no = 1
+
+    # apakah kepemilikan kosong
+    def isKepemilikanKosong(listkepemilikan,userid):
+        count = 0
+        for i in range(getLength(listkepemilikan)):
+            for j in range(2):
+                if listkepemilikan[i][1] == userid :
+                    count += 1
+    
+        return not count > 0
     
     if not isKepemilikanKosong(listkepemilikan,userid):
         if (idgame != '') :
