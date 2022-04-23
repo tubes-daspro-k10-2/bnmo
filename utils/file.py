@@ -48,7 +48,7 @@ def append_array(arr : list, toAppend : list, konso : bool = True) -> list:
         arr = [toAppend] + arr
     
     # arr = update_array(arr) # removed it in now
-    print(arr)
+    #print(arr)
     #print('util file', arr)#
 
     return arr
@@ -93,7 +93,7 @@ def save_csv(folderPath : str, fileName : str, content : list[str]):
 
     
 
-    print('filepy', newContent)
+    #print('filepy', newContent)
 
     with open(str(folderPath)+str(fileName)+'.csv', 'w+') as f:
         # print(getlength(content))
@@ -117,8 +117,18 @@ def getIndexByName(indexName : str, fileName : str) -> int:
         for i in range(getLength(riwayatcsvHeader)):
             if indexName == riwayatcsvHeader[i]:
                 return i
-    else: #fileName == 'kepemilikan':
+    elif fileName == 'kepemilikan':
         for i in range(getLength(kepemilikancsvHeader)):
             if indexName == kepemilikancsvHeader[i]:
                 return i
+    else:
+        printWarning('getIndexByName missing references!')
         
+def isKepemilikanKosong(listkepemilikan,userid):
+    count = 0
+    for i in range(getLength(listkepemilikan)):
+        for j in range(2):
+            if listkepemilikan[i][1] == userid :
+                count += 1
+    
+    return not count > 0

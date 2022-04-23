@@ -9,6 +9,9 @@ def isAdmin(sessionAccount : list) -> bool:
     return False
 
 def isUsernameValid(s):
+    if s == '':
+        return False
+        
     for i in s:
         if (i=='-' or i=='_' or 'a'<=i<='z' or 'A'<=i<='Z' or '0'<=i<='9'):
             continue

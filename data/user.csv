@@ -1,5 +1,5 @@
 id;username;name;password;role;saldo
-1;fkhap;fakih;aHst0gpy;admin;99999
+1;fkhap;fakih;aHst0gpy;admin;123456
 2;newuser;userbaru;iRzhPRGgpy;user;0
 3;min;minangdeng;Z1igpy;user;0
 4;cekhaskiloveyou;cekhash;-RHstP1QrqRFrh;user;0
@@ -7,3 +7,5 @@ id;username;name;password;role;saldo
 6;su;sugihman;Phg;user;990639996
 7;klo12;kaloooo;HrHr;user;900000
 8;m;m;Z;user;1
+9;admin;administrator;tIZ1i;admin;0
+10;addnew;addnew;tIgpy;user;0

@@ -13,55 +13,28 @@ def printAccount(sessionAccount : list):
 
 def userChoices():
     print(' 1. list_game_toko')
-    print(' 2. beli_game')
-    print(' 3. lihat_game_dimiliki')
-    print(' 4. cari_game_dimiliki')
-    print(' 5. cari_game_toko')
-    print(' 6. riwayat_pembelian')
-    
+    print(' 2. buy_game')
+    print(' 3. list_game')
+    print(' 4. search_my_game')
+    print(' 5. search_game_at_store')
+    print(' 6. riwayat')
+    print()
     print(' 8. help')
     print(' 9. save')
     print('10. exit')
 
 def adminChoices():
     print(' 1. register') 
-    print(' 2. tambah_game_toko')
-    print(' 3. ubah_game_toko')
-    print(' 4. ubah_stok_game_toko')
+    print(' 2. tambah_game')
+    print(' 3. ubah_game')
+    print(' 4. ubah_stok')
     print(' 5. list_game_toko')
-    print(' 6. cari_game_toko')
-    print(' 7. top_up')
-
+    print(' 6. search_game_at_store')
+    print(' 7. topup')
+    print()
     print(' 8. help')
     print(' 9. save')
     print('10. exit')
-
-# def userChoices():
-#     print(' 1. List Game di Toko')
-#     print(' 2. Beli Game')
-#     print(' 3. Lihat Game yang Dimiliki')
-#     print(' 4. Cari Game yang Dimiliki')
-#     print(' 5. Cari Game di Toko')
-#     print(' 6. Lihat Riwayat Pembelian')
-    
-#     print(' 8. Help')
-#     print(' 9. Save')
-#     print('10. Exit')
-
-# def adminChoices():
-#     print(' 1. Register') 
-#     print(' 2. Tambah Game ke Toko')
-#     print(' 3. Ubah Game di Toko')
-#     print(' 4. Ubah Stok Game di Toko')
-#     print(' 5. List Game di Toko')
-#     print(' 6. Cari Game di Toko')
-#     print(' 7. Top Up Saldo')
-
-#     print(' 8. Help')
-#     print(' 9. Save')
-#     print('10. Exit')
-
-
 
 def LandingPage() -> int:
     printCenter('Welcome!')
@@ -124,23 +97,23 @@ def MainMenu(sessionAccount : list) -> int:
 
         try:
             choiceAnswer = inputValidated('Masukkan perintah : ', ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 
-            'register', 'tambah_game_toko', 'ubah_game_toko', 'ubah_stok_game_toko', 'list_game_toko', 'cari_game_toko', 'top_up', 'help', 'save', 'exit'])
+            'register', 'tambah_game', 'ubah_game', 'ubah_stok', 'list_game_toko', 'search_game_at_store', 'topup', 'help', 'save', 'exit'])
         except:
             pass
         
         if choiceAnswer == '1' or choiceAnswer == 'register':
             return 1
-        elif choiceAnswer == '2' or choiceAnswer == 'tambah_game_toko':
+        elif choiceAnswer == '2' or choiceAnswer == 'tambah_game':
             return 2
-        elif choiceAnswer == '3' or choiceAnswer == 'ubah_game_toko':
+        elif choiceAnswer == '3' or choiceAnswer == 'ubah_game':
             return 3
-        elif choiceAnswer == '4' or choiceAnswer == 'ubah_stok_game_toko':
+        elif choiceAnswer == '4' or choiceAnswer == 'ubah_stok':
             return 4
         elif choiceAnswer == '5' or choiceAnswer == 'list_game_toko':
             return 5
-        elif choiceAnswer == '6' or choiceAnswer == 'cari_game_toko':
+        elif choiceAnswer == '6' or choiceAnswer == 'search_game_at_store':
             return 6
-        elif choiceAnswer == '7' or choiceAnswer == 'top_up':
+        elif choiceAnswer == '7' or choiceAnswer == 'topup':
             return 7
 
         elif choiceAnswer == '8' or choiceAnswer == 'help':
@@ -153,24 +126,24 @@ def MainMenu(sessionAccount : list) -> int:
 
     else:
         userChoices()
-
+        
         try:
             choiceAnswer = inputValidated('Masukkan perintah : ', ['1', '2', '3', '4', '5', '6', '8', '9', '10', 
-            'list_game_toko', 'beli_game', 'lihat_game_toko', 'cari_game_dimiliki', 'cari_game_toko', 'riwayat_pembelian', 'help', 'save', 'exit' ])
+            'list_game_toko', 'buy_game', 'list_game', 'search_my_game', 'search_game_at_store', 'riwayat', 'help', 'save', 'exit' ])
         except:
             pass
 
         if choiceAnswer == '1' or choiceAnswer == 'list_game_toko':
             return 1
-        elif choiceAnswer == '2' or choiceAnswer == 'beli_game':
+        elif choiceAnswer == '2' or choiceAnswer == 'buy_game':
             return 2
-        elif choiceAnswer == '3' or choiceAnswer == 'lihat_game_toko':
+        elif choiceAnswer == '3' or choiceAnswer == 'list_game':
             return 3
-        elif choiceAnswer == '4' or choiceAnswer == 'cari_game_dimiliki':
+        elif choiceAnswer == '4' or choiceAnswer == 'search_my_game':
             return 4
-        elif choiceAnswer == '5' or choiceAnswer == 'cari_game_toko':
+        elif choiceAnswer == '5' or choiceAnswer == 'search_game_at_store':
             return 5
-        elif choiceAnswer == '6' or choiceAnswer == 'riwayat_pembelian':  
+        elif choiceAnswer == '6' or choiceAnswer == 'riwayat':  
             return 6
 
         elif choiceAnswer == '8' or choiceAnswer == 'help':
@@ -183,3 +156,8 @@ def MainMenu(sessionAccount : list) -> int:
 
     
     return choiceAnswer
+
+def ExitPage():
+    printCenter('Thank You!')
+    print()
+    printCenter('Made with love by us K10-2! ♥')

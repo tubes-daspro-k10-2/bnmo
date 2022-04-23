@@ -1,4 +1,4 @@
-from utils.file import append_array, read_csv, folderExist, createFolder, save_csv, getIndexByName
+from utils.file import append_array, read_csv, folderExist, createFolder, save_csv, getIndexByName, isKepemilikanKosong
 from utils.ui import printWarning
 from utils.user import isUsernameValid
 from utils.main import getLength
@@ -20,7 +20,7 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
         terdaftar = False
         i = 0
         while ((not terdaftar) and i < getLength(userArray)):
-            if (userArray[i][getIndexByName('usermame', 'user')] == username):
+            if (userArray[i][getIndexByName('username', 'user')] == username):
                 print("\nUsername ",username," sudah terpakai, silakan menggunakan username lain.")
                 terdaftar = True
             i+=1
@@ -29,6 +29,7 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
                 user_valid = True
             else:
                 print("Username hanya dapat mengandung alfabet A-Z a-z, underscore '_', strip '-', dan angka 0-9") 
+                return userArray
             
     
     #======================TAMBAHKAN DATA BARU===================
@@ -36,7 +37,7 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
 
     hashedPassword = encrypt(password) ## cipher
 
-    baru = [str(idn),username,nama,hashedPassword,"user",0] #id,username,name,password,role,saldo
+    baru = [str(idn+1),username,nama,hashedPassword,"user",0] #id,username,name,password,role,saldo
     # temp = [0 for i in range (getLength(userArray)+1)]
     # for i in range (getLength(userArray)):
     #     temp[i] = userArray[i]
@@ -53,8 +54,8 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
 #f03
 def login(userArray : list, username : str, password : str) -> list[str, str, str, str]:
     hashedPassword = encrypt(password)
-    print('has', hashedPassword)
-    print('unhas', decrypt(hashedPassword))
+    # print('has', hashedPassword)
+    # print('unhas', decrypt(hashedPassword))
     ada = False
     i=0
     while ((not ada) and i < getLength(userArray)):
@@ -142,7 +143,7 @@ def ubah_game(gameArray : list) -> list:
     harga = input("Masukkan harga: ")
     if (harga != ""):
         gameArray[n][5] = harga
-    print(gameArray[n])
+    # print(gameArray[n])
     #perintah sukses
     print("Selamat! Berhasil mengubah game ", gameArray[n][2],".")
 
@@ -261,7 +262,7 @@ def list_game_toko(matrix) :
 #f08
 def buy_game(matrix : list[list], matrix2 : list[list], matrix3 : list[list], user_id : int) : # matriks data game, matriks data kepemilikan, matriks data user, user id
     # Fungsi untuk F08 - Membeli game
-    print('leave', matrix)
+    # print('leave', matrix)
     # Menginput game ID yang ingin dibeli
     game_id = input("Masukkan ID Game : ")
 
@@ -273,23 +274,23 @@ def buy_game(matrix : list[list], matrix2 : list[list], matrix3 : list[list], us
     kepemilikan_content = [['' for i in range(3)] for j in matrix2]
     user_content = [['' for i in range(6)] for j in matrix3]
 
-    print('failure', game_content, matrix)
+    # print('failure', game_content, matrix)
     for i in range(getLength(matrix)):#CHANGE
         for j in range(getLength(matrix[i])):
             game_content[i][j] = matrix[i][j]
-        print('GA CON\n', game_content[i])
+        # print('GA CON\n', game_content[i])
     
     for i in range(getLength(matrix2)):#CHANGE
         kepemilikan_content[i] = matrix2[i]
 
-        print('KE CON', kepemilikan_content)
+        # print('KE CON', kepemilikan_content)
 
     for i in range(getLength(matrix3)):#CHANGE
         for j in range(getLength(user_content[i])):
             user_content[i][j] = matrix3[i][j]
         
 
-        print('U CON\n', user_content[i])
+        # print('U CON\n', user_content[i])
 
     # Fungsi untuk mengecek game ID dan apakah game telah dimiliki
     def id_checker(matrix, game, user): # nama matriks, game id, username
@@ -297,12 +298,12 @@ def buy_game(matrix : list[list], matrix2 : list[list], matrix3 : list[list], us
         found = False # variable pembantu
         while (k < getLength(matrix)) and found == False :
             if matrix == game_content :
-                print(game, matrix[k][0])
+                # print(game, matrix[k][0])
                 if game == matrix[k][0] : # mengecek id game #CHANGE
                     found = True
             elif matrix == kepemilikan_content :
-                print(user)
-                print('voila', game == matrix[k][getIndexByName('game_id', 'kepemilikan')], user == int(matrix[k][getIndexByName('user_id', 'kepemilikan')])) #CHANGE MATRIX KEPEMILIKAN
+                # print(user)
+                # print('voila', game == matrix[k][getIndexByName('game_id', 'kepemilikan')], user == int(matrix[k][getIndexByName('user_id', 'kepemilikan')])) #CHANGE MATRIX KEPEMILIKAN
                 if game == matrix[k][getIndexByName('game_id', 'kepemilikan')] and user == matrix[k][getIndexByName('user_id', 'kepemilikan')] : # mengecek apakah game telah dimiliki
                     found = True
             elif matrix == user_content :
@@ -333,7 +334,7 @@ def buy_game(matrix : list[list], matrix2 : list[list], matrix3 : list[list], us
             if game_content[k][getIndexByName('stok', 'game')] == 0 : # stok
                 print("Stok Game tersbut sedang habis")
             elif game_content[k][getIndexByName('harga', 'game')] > 0 : # harga
-                print(',,,,,', user_content[l][getIndexByName('saldo', 'user')], game_content[k][getIndexByName('harga', 'game')])
+                # print(',,,,,', user_content[l][getIndexByName('saldo', 'user')], game_content[k][getIndexByName('harga', 'game')])
                 if user_content[l][getIndexByName('saldo', 'user')] >= game_content[k][getIndexByName('harga', 'game')] : # apakah saldo cukup untuk membeli game
                     print(f"Game {game_content[k][1]} berhasil dibeli")
 
@@ -346,7 +347,7 @@ def buy_game(matrix : list[list], matrix2 : list[list], matrix3 : list[list], us
                     # matrix2[-1][1] = user_id # mengisi data pembelian
 
                     kepemilikan_content = append_array(kepemilikan_content, [game_id, user_id])
-                    print(kepemilikan_content)
+                    # print(kepemilikan_content)
                 else :
                     print("Saldo Anda tidak cukup untuk membeli game tersebut")
             else: #free game
@@ -361,7 +362,7 @@ def buy_game(matrix : list[list], matrix2 : list[list], matrix3 : list[list], us
                 # matrix2[-1][1] = user_id # mengisi data pembelian
 
                 kepemilikan_content = append_array(kepemilikan_content, [game_id, user_id])
-                print(kepemilikan_content)
+                # print(kepemilikan_content)
 
 
     return game_content, kepemilikan_content, user_content
@@ -391,6 +392,104 @@ def list_game(game_content, kepemilikan_content, user_id) :
     if j == 1 :
         print("Maaf, kamu belum memiliki game. Ketik perintah buy_game untuk membeli")
 
+
+#f10
+def search_my_game(listgame,listkepemilikan,userid):
+    idgame = input('Masukkan ID Game: ')
+    tahunrilis = input('Masukkan Tahun Rilis Game: ')
+    
+    ada = False
+    no = 1
+    
+    if not isKepemilikanKosong(listkepemilikan,userid):
+        if (idgame != '') :
+            for j in range(getLength(listkepemilikan)):
+                if (idgame == listkepemilikan[j][0] and userid == listkepemilikan[j][1]):
+                    for i in range(getLength(listgame)):
+                        if (tahunrilis != ''):
+                            if (idgame == listgame[i][0] and tahunrilis == str(listgame[i][3])):
+                                print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                ada = True
+                                break
+                        else:
+                            if (idgame == listgame[i][0]):
+                                print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                ada = True
+                                break
+        else:
+            for j in range(getLength(listkepemilikan)):
+                if (userid == listkepemilikan[j][1]):
+                    idgame = listkepemilikan[j][0]
+                    for i in range(getLength(listgame)):
+                        if (tahunrilis != ''):
+                            if (idgame == listgame[i][0] and tahunrilis == str(listgame[i][3])):
+                                print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                ada = True
+                                no += 1
+                        else:
+                            if (idgame == listgame[i][0]):
+                                print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                ada = True
+                                no += 1
+        if not ada:
+            print('Tidak ada game pada inventory-mu yang memenuhi kriteria.')
+        return
+
+    else:
+        print('Tidak ada game pada inventory-mu yang memenuhi kriteria.')
+        return
+
+#f11
+def search_game_at_store(arrayGame):
+    id = input('Masukkan Game ID: ')
+    game = input('Masukkan Nama Game: ')
+    harga = input('Masukkan Harga Game: ')
+    kategori = input('Masukkan Kategori Game: ')
+    tahunrilis = input('Masukkan Tahun Rilis Game: ')
+    
+    x = 0
+    for i in range (getLength(arrayGame)):
+        if ((id == "") or (id == arrayGame[i][0])) and ((game == "") or (game == arrayGame[i][1])) and ((harga == "") or (harga == str(arrayGame[i][4]))) and ((kategori == "") or (kategori == arrayGame[i][2])) and ((tahunrilis == "") or (tahunrilis == str(arrayGame[i][3]))) :
+            x = x + 1
+            print(f"{x}. {arrayGame[i][0]} | {arrayGame[i][1]} | {arrayGame[i][4]} | {arrayGame[i][2]} | {arrayGame[i][3]} | {arrayGame[i][5]}")
+                   
+    if x == 0 :
+        print('Tidak ada game pada toko yang memenuhi kriteria.')
+
+#f12
+def topup(matriksUser):
+    username = input('Masukkan username: ')
+    saldo = int(input('Masukkan saldo: '))
+    
+    for i in range(getLength(matriksUser)):
+        if username == matriksUser[i][getIndexByName('username', 'user')] :
+            saldoawal = int(matriksUser[i][getIndexByName('saldo', 'user')])
+            if (saldoawal + saldo) >= 0 :
+                saldoawal += saldo
+                matriksUser[i][getIndexByName('saldo', 'user')] = str(saldoawal)
+                print(f"Top up berhasil. Saldo {matriksUser[i][getIndexByName('username', 'user')]} berubah menjadi {matriksUser[i][getIndexByName('saldo', 'user')]}.")
+                return matriksUser
+            else :
+                print('Masukan tidak valid.')
+                return matriksUser
+    print(f'Username "{username}" tidak ditemukan.')
+
+    return matriksUser
+
+#f13
+def riwayat(matriks,userid):
+    adaRiwayat = False
+    no = 1
+    for i in range(getLength(matriks)):
+        if userid == matriks[i][getIndexByName('user_id', 'kepemilikan')]:
+            print(f"{no}. {matriks[i][0]} | {matriks[i][1]} | {matriks[i][2]} | {matriks[i][4]}")
+            adaRiwayat = True
+            no += 1
+    
+    if not adaRiwayat:
+        print('Maaf, kamu tidak ada riwayat pembelian game. Ketik perintah beli_game untuk membeli.')
+        
+    return
 
 #f14
 def help():

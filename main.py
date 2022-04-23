@@ -6,11 +6,11 @@ from utils.ui import printWarning, printRight, printCenter, clearScreen
 from utils.file import append_array, folderExist, getIndexByName # move it to save
 from utils.user import getSessionAccount, isAdmin
 
-from front.ui import LoginPage, RegisterPage, header, RegisterPage, LandingPage, MainMenu
+from front.ui import ExitPage, LoginPage, RegisterPage, header, RegisterPage, LandingPage, MainMenu
 
 from constants import emptySessionAccount
 
-from body.function_main import register, login, tambah_game, ubah_game, ubah_stok, list_game_toko, buy_game, list_game, help , Load, Save, exit
+from body.function_main import register, login, riwayat, search_game_at_store, search_my_game, tambah_game, topup, ubah_game, ubah_stok, list_game_toko, buy_game, list_game, help , Load, Save, exit
 
 #from f02 import register
 #from f14 import help
@@ -43,7 +43,7 @@ def main():
             quit()
         else:
             userArray, gameArray, riwayatArray, kepemilikanArray = Load(folderPath)
-            print('load result :', userArray, gameArray, riwayatArray, kepemilikanArray) # hapus ini
+            # print('load result :', userArray, gameArray, riwayatArray, kepemilikanArray) # hapus ini
             time.sleep(1)
         #read_csv(args.folderName)
         #py main.py -folderName ./eksperimen/user.csv
@@ -77,7 +77,7 @@ def main():
             #sessionAccount = username, name, 0      
             #userArray = append_array(userArray, 0, name, username, password, 4000)
 
-            print(sessionAccount)
+            # print(sessionAccount)
             #exit(folderPath, userArray)
         else :
             choiceAnswer = MainMenu(sessionAccount)
@@ -94,17 +94,14 @@ def main():
                 elif choiceAnswer == 4:
                     gameArray = ubah_stok(gameArray)
                 elif choiceAnswer == 5:
-                    gameArray = list_game_toko(gameArray)
+                    list_game_toko(gameArray)
                 elif choiceAnswer == 6:
-                    print()
+                    search_game_at_store(gameArray)
                 elif choiceAnswer == 7:
-                    print()
+                    userArray = topup(userArray)
+                    print(userArray)
                 elif choiceAnswer == 8:
-                    print()
-                   
-                # elif choiceAnswer == 'put' :
-                #     (u, n, p) = (input('u '), input('n '), input('p '))
-                #     userArray = append_array(folderPath, ['user', 1, u, n, p, 2000])
+                    help()
                 elif choiceAnswer == 9:
                     Save(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                 elif choiceAnswer == 10:
@@ -119,22 +116,24 @@ def main():
                 elif choiceAnswer == 3:
                     list_game(gameArray, kepemilikanArray, sessionAccount[4])
                 elif choiceAnswer == 4:
-                    print()
+                    search_my_game(gameArray, kepemilikanArray, sessionAccount[4])
                 elif choiceAnswer == 5:
-                    print()
+                    search_game_at_store(gameArray)
                 elif choiceAnswer == 6:
-                    print()
-                elif choiceAnswer == 7:
-                    print()
+                    riwayat(riwayatArray, sessionAccount[4])
                 elif choiceAnswer == 8:
-                    print()
+                    help()
                 elif choiceAnswer == 9:
                     Save(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                 elif choiceAnswer == 10:
                     exit(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
-                    clearScreen()
+                    #clearScreen()
                     finished = True
+            
+            if finished : ExitPage()
 
+            input()
+            clearScreen()
             sessionAccount = getSessionAccount(userArray, sessionAccount[0])
         ########################################
         
@@ -143,7 +142,7 @@ def main():
         #2
 
         # choice prompt
-        printCenter()
+        # printCenter()
 
 
 if __name__ == '__main__':
