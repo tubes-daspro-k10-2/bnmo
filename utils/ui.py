@@ -83,3 +83,14 @@ def clearScreen():
   
     else:
         _ = system('clear')
+
+
+def getBoxUI(*boxLen : int, limiter : str = '|') -> str:
+    limiter = '|'
+    result = limiter
+    for i in boxLen:
+        result += '{:^i}' + limiter
+
+    return result
+
+print(getBoxUI(1,3,4, 9))

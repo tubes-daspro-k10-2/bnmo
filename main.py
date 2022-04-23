@@ -112,7 +112,7 @@ def main():
                 if choiceAnswer == 1:
                     list_game_toko(gameArray)
                 elif choiceAnswer == 2:
-                    gameArray, kepemilikanArray, userArray = buy_game(gameArray, kepemilikanArray, userArray, sessionAccount[4]) 
+                    gameArray, kepemilikanArray, userArray, riwayatArray = buy_game(gameArray, kepemilikanArray, userArray, riwayatArray, sessionAccount[4]) 
                 elif choiceAnswer == 3:
                     list_game(gameArray, kepemilikanArray, sessionAccount[4])
                 elif choiceAnswer == 4:

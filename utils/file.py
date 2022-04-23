@@ -37,11 +37,8 @@ def append_array(arr : list, toAppend : list, konso : bool = True) -> list:
     
     if arr == [] or getLength(arr[0]) != getLength(toAppend):
         printWarning('DIFFERENT LIST SIZE')
-    #print(type(arr), type(newData))
-    # for i in range(len(values)):
-    #     newData += str(values[i])
-    #     if i+1 != len(values) :
-    #         newData += ';'
+        print('AAAAAAAAAAAAAAAA', arr, 'ASDA', [toAppend])
+
     if konso:
         arr = arr + [toAppend] # sub array
     else:
