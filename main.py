@@ -136,13 +136,6 @@ def main():
             clearScreen()
             sessionAccount = getSessionAccount(userArray, sessionAccount[0])
         ########################################
-        
-        # list of menus to choose
-        #1
-        #2
-
-        # choice prompt
-        # printCenter()
 
 
 if __name__ == '__main__':

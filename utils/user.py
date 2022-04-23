@@ -11,13 +11,24 @@ def isAdmin(sessionAccount : list) -> bool:
 def isUsernameValid(s):
     if s == '':
         return False
-        
+
     for i in s:
         if (i=='-' or i=='_' or 'a'<=i<='z' or 'A'<=i<='Z' or '0'<=i<='9'):
             continue
         else:
             return False
     return True
+
+# def isInputValid(s):
+#     if s == '':
+#         return False
+
+#     for i in s:
+#         if (i == ' ' or i == ';'):
+#             return False
+
+#     return True
+
 
 def getSessionAccount(userArray, username):
     ada = False

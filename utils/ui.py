@@ -31,6 +31,34 @@ def inputValidated(text : str = '', validInput : list = defaultAllowedCharacter)
     
     return ans
 
+def validIntegerInput(textInput : str = ''):
+    while True:
+        try:
+            ans = int(input(textInput))
+        except:
+            print()
+            print('Input bukan bilangan bulat!')
+            print()
+        else:
+            return ans
+
+def validStringInput(textInput : str = ''):
+    while True:
+        try:
+            ans = (input(textInput))
+        except:
+            pass
+        else:
+            valid = True
+            for i in ans:
+                if i == ' ' or i == ';':
+                    valid = False
+                    print('Masukan tidak valid')
+                    break
+            
+            if valid:
+                return ans
+            
 
 ################## PRINT #######################
 def printCenter(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = defaultScreenWidth, space : str = ' '):
@@ -91,12 +119,11 @@ def clearScreen():
     else:           # bukan sistem windows
         _ = system('clear')
 
-
-# DI BAWAH INI JANGAN DULU
+# UI Box
 def getBoxUI(*boxLen : int, limiter : str = '|') -> str:
     limiter = '|'
     result = limiter
     for i in boxLen:
-        result += '{:^i}' + limiter
+        result += '{:<'+ str(i) +'}' + limiter
 
     return result

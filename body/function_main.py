@@ -1,7 +1,7 @@
 import time
 
 from utils.file import append_array, read_csv, folderExist, createFolder, save_csv, getIndexByName
-from utils.ui import printWarning
+from utils.ui import getBoxUI, printWarning, validIntegerInput, validStringInput
 from utils.user import isUsernameValid
 from utils.main import getLength
 
@@ -33,9 +33,9 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
     #======================TAMBAHKAN DATA BARU===================
     idn = getLength(userArray)
 
-    hashedPassword = encrypt(password) ## cipher
+    encryptedPassword = encrypt(password) ## cipher
 
-    baru = [str(idn+1), username, nama, hashedPassword, "user", 0] #id,username,name,password,role,saldo
+    baru = [str(idn+1), username, nama, encryptedPassword, "user", 0] #id,username,name,password,role,saldo
 
     userArray = append_array(userArray, baru)
 
@@ -46,12 +46,12 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
 
 #f03
 def login(userArray : list, username : str, password : str) -> list[str, str, str, str]:
-    hashedPassword = encrypt(password)
+    encryptedPassword = encrypt(password)
     
     ada = False
     i=0
     while ((not ada) and i < getLength(userArray)):
-        if (userArray[i][getIndexByName('username', 'user')] == username and userArray[i][getIndexByName('password', 'user')]==hashedPassword):
+        if (userArray[i][getIndexByName('username', 'user')] == username and userArray[i][getIndexByName('password', 'user')]==encryptedPassword):
             print("\nHalo ", username, "! Selamat datang di Binomo.")
             ada = True
             
@@ -109,7 +109,7 @@ def ubah_game(gameArray : list) -> list:
     valid_id = False
     n = 0 #deklarasi elemen
     while (not valid_id):
-        idn = input("Masukkan ID game :")
+        idn = validStringInput("Masukkan ID game :")
         for i in range (getLength(gameArray)):
             if (idn==gameArray[i][getIndexByName('id', 'game')]):  #id berada di urutan 1  pada array game
                 valid_id = True
@@ -118,16 +118,16 @@ def ubah_game(gameArray : list) -> list:
             print("ID GAME tidak terdaftar. Ulangi!")
             
     #========UBAH DATA GAME BARU===========================
-    nama = input("Masukkan nama game : ")
+    nama = validStringInput("Masukkan nama game : ")
     if (nama != ""):
         gameArray[n][getIndexByName('nama', 'game')] = nama
-    kategori = input("Masukkan kategori : ")
+    kategori = validStringInput("Masukkan kategori : ")
     if (kategori != ""):
         gameArray[n][getIndexByName('kategori', 'game')] = kategori
-    tahun_rilis = input("Masukkan tahun rilis : ")
+    tahun_rilis = validIntegerInput("Masukkan tahun rilis : ")
     if (tahun_rilis != ""):
         gameArray[n][getIndexByName('tahun_rilis', 'game')] = tahun_rilis
-    harga = input("Masukkan harga: ")
+    harga = validIntegerInput("Masukkan harga: ")
     if (harga != ""):
         gameArray[n][getIndexByName('harga', 'game')] = harga
     
@@ -141,7 +141,7 @@ def ubah_stok(matrix : str) :
     # Fungsi untuk F06 - Merubah stok game yang tersedia di toko
 
     # Menginput ID Game
-    game_id = input("Masukkan ID game : ")
+    game_id = validStringInput("Masukkan ID game : ")
 
     # Menghapus header pada matrix
     # konten_matriks = matrix[1:] # data alr no header
@@ -159,8 +159,7 @@ def ubah_stok(matrix : str) :
 
     # Mengubah stok game
     if found == True :
-        
-        jumlah = int(input("Masukkan jumlah : "))
+        jumlah = validIntegerInput("Masukkan jumlah : ")
 
         if jumlah > 0 :
             n = "ditambahkan" # variable pembantu
@@ -184,7 +183,7 @@ def list_game_toko(matrix) :
     # Fungsi untuk F07 - Menampilkan list game pada toko sesuai urutan
 
     # Menginput skema sorting
-    sorting = input("Skema sorting : ")
+    sorting = validStringInput("Skema sorting : ")
 
     # Menghapus header pada matriks
     # konten_matriks = matrix[1:] # hapus karena data yang diberikan sudah data only w/o header
@@ -251,7 +250,7 @@ def buy_game(matrix : list[list], matrix2 : list[list], matrix3 : list[list], ma
     # Fungsi untuk F08 - Membeli game
 
     # Menginput game ID yang ingin dibeli
-    game_id = input("Masukkan ID Game : ")
+    game_id = validStringInput("Masukkan ID Game : ")
 
     
     # Menghapus header pada matriks # data alr no header
@@ -371,6 +370,7 @@ def list_game(game_content, kepemilikan_content, user_id) :
                 else :
                     k += 1
             print(f"{j}. {game_content[k][0]} | {game_content[k][1]} | {game_content[k][2]} | {game_content[k][3]} | {game_content[k][4]}")
+            # print( f'{j}.' + getBoxUI(8, 18, 15, 6, 5).format(game_content[k][0], game_content[k][1], game_content[k][2], game_content[k][3], game_content[k][4]))
             j += 1
     
     if j == 1 :
@@ -418,6 +418,7 @@ def search_my_game(listgame,listkepemilikan,userid):
                         if (tahunrilis != ''):
                             if (idgame == listgame[i][0] and tahunrilis == str(listgame[i][3])):
                                 print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                
                                 ada = True
                                 no += 1
                         else:

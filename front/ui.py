@@ -47,7 +47,6 @@ def LandingPage() -> int:
 
     
     try:
-        # ans = inputValidated('>>> ', ['1', '2', '3', 'login', 'register', 'exit'])
         choiceAnswer = inputValidated('>>> ', ['1', '2', 'login', 'exit'])
     except:
         pass
@@ -126,7 +125,7 @@ def MainMenu(sessionAccount : list) -> int:
 
     else:
         userChoices()
-        
+
         try:
             choiceAnswer = inputValidated('Masukkan perintah : ', ['1', '2', '3', '4', '5', '6', '8', '9', '10', 
             'list_game_toko', 'buy_game', 'list_game', 'search_my_game', 'search_game_at_store', 'riwayat', 'help', 'save', 'exit' ])
