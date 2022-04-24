@@ -445,7 +445,7 @@ def search_my_game(listgame,listkepemilikan,userid):
                                 no += 1
 
         # cetak daftar game yang dimiliki
-        makeBoxUI(contentToPrint, ['ID Game', 'Nama Game', 'Harga', 'Kategori', 'Tahun RIlis'])
+        makeBoxUI(contentToPrint, ['ID Game', 'Nama Game', 'Harga', 'Kategori', 'Tahun Rilis'])
 
         # jika tidak ditemukan
         if not ada:
@@ -475,7 +475,9 @@ def search_game_at_store(arrayGame):
 
     # tidak ditemukan game yang sesuai   
     if x == 0 :
-        print('Tidak ada game pada toko yang memenuhi kriteria.')
+        print('\nTidak ada game pada toko yang memenuhi kriteria.')
+    else:
+        print('\nDaftar game di toko yang memenuhi kriteria : ')
     
     # cetak daftar
     makeBoxUI(contentToPrint, ['Game ID', 'Nama Game', 'Harga', 'Kategori', 'Tahun Rilis', 'Stok'])
