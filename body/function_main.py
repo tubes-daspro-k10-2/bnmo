@@ -1,3 +1,4 @@
+from array import array
 import time
 from front.ui import helpText
 
@@ -186,9 +187,6 @@ def list_game_toko(matrix) :
     # Menginput skema sorting
     sorting = validStringInput("Skema sorting : ")
 
-    # Menghapus header pada matriks
-    # konten_matriks = matrix[1:] # hapus karena data yang diberikan sudah data only w/o header
-
     # Menghitung banyak baris pada konten_matrix
     count = getLength(matrix)
 
@@ -241,11 +239,11 @@ def list_game_toko(matrix) :
             list_index[i] = list_data[1][i]
 
         # Mengeprint list game
-        # for i in range(count) :
-        #     print(f"{i+1}. {matrix[list_index[i]][0]} | {matrix[list_index[i]][1]} | {matrix[list_index[i]][2]} | {matrix[list_index[i]][3]} | {matrix[list_index[i]][4]} | {matrix[list_index[i]][5]}")
-            #print(matrix)
-            #makeBoxUI(matrix[list_index[i]], gamecsvHeader)
-        makeBoxUI(matrix, gamecsvHeader)
+        contentToPrint = []
+        for i in range(count) :
+            contentToPrint += [matrix[list_index[i]]]
+        makeBoxUI(contentToPrint, ['Game ID', 'Nama Game', 'Kategori', 'Tahun Rilis', 'Harga', 'Stok'])
+        
         return
 
 #f08
@@ -374,13 +372,13 @@ def list_game(game_content, kepemilikan_content, user_id) :
                 else :
                     k += 1
             
-            contentToPrint += [game_content[k]]
+            contentToPrint += [[game_content[k][0], game_content[k][1], game_content[k][2], game_content[k][3], game_content[k][4]]]
             #print(f"{j}. {game_content[k][0]} | {game_content[k][1]} | {game_content[k][2]} | {game_content[k][3]} | {game_content[k][4]}")
             # 
             
             j += 1
     
-    makeBoxUI(contentToPrint, gamecsvHeader)
+    makeBoxUI(contentToPrint, ['ID', 'Nama game', 'Kategori', 'Tahun Rilis', 'Harga'])
 
     if j == 1 :
         print("Maaf, kamu belum memiliki game. Ketik perintah buy_game untuk membeli")
@@ -394,6 +392,8 @@ def search_my_game(listgame,listkepemilikan,userid):
     
     ada = False
     no = 1
+
+    contentToPrint = []
 
     # apakah kepemilikan kosong
     def isKepemilikanKosong(listkepemilikan,userid):
@@ -412,12 +412,14 @@ def search_my_game(listgame,listkepemilikan,userid):
                     for i in range(getLength(listgame)):
                         if (tahunrilis != ''):
                             if (idgame == listgame[i][0] and tahunrilis == str(listgame[i][3])):
-                                print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                               # print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                contentToPrint += [[listgame[i][0], listgame[i][1], listgame[i][4], listgame[i][2], listgame[i][3]]]
                                 ada = True
                                 break
                         else:
                             if (idgame == listgame[i][0]):
-                                print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                # print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                contentToPrint += [[listgame[i][0], listgame[i][1], listgame[i][4], listgame[i][2], listgame[i][3]]]
                                 ada = True
                                 break
         else:
@@ -427,15 +429,19 @@ def search_my_game(listgame,listkepemilikan,userid):
                     for i in range(getLength(listgame)):
                         if (tahunrilis != ''):
                             if (idgame == listgame[i][0] and tahunrilis == str(listgame[i][3])):
-                                print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
-                                
+                                # print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                contentToPrint += [[listgame[i][0], listgame[i][1], listgame[i][4], listgame[i][2], listgame[i][3]]]
                                 ada = True
                                 no += 1
                         else:
                             if (idgame == listgame[i][0]):
-                                print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                # print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                contentToPrint += [[listgame[i][0], listgame[i][1], listgame[i][4], listgame[i][2], listgame[i][3]]]
                                 ada = True
                                 no += 1
+
+        makeBoxUI(contentToPrint, ['ID Game', 'Nama Game', 'Harga', 'Kategori', 'Tahun RIlis'])
+
         if not ada:
             print('Tidak ada game pada inventory-mu yang memenuhi kriteria.')
         return
@@ -452,14 +458,19 @@ def search_game_at_store(arrayGame):
     kategori = input('Masukkan Kategori Game: ')
     tahunrilis = input('Masukkan Tahun Rilis Game: ')
     
+    contentToPrint = []
+
     x = 0
     for i in range (getLength(arrayGame)):
         if ((id == "") or (id == arrayGame[i][0])) and ((game == "") or (game == arrayGame[i][1])) and ((harga == "") or (harga == str(arrayGame[i][4]))) and ((kategori == "") or (kategori == arrayGame[i][2])) and ((tahunrilis == "") or (tahunrilis == str(arrayGame[i][3]))) :
             x = x + 1
-            print(f"{x}. {arrayGame[i][0]} | {arrayGame[i][1]} | {arrayGame[i][4]} | {arrayGame[i][2]} | {arrayGame[i][3]} | {arrayGame[i][5]}")
+            # print(f"{x}. {arrayGame[i][0]} | {arrayGame[i][1]} | {arrayGame[i][4]} | {arrayGame[i][2]} | {arrayGame[i][3]} | {arrayGame[i][5]}")
+            contentToPrint += [[arrayGame[i][0], arrayGame[i][1], arrayGame[i][4], arrayGame[i][2], arrayGame[i][3]]]
                    
     if x == 0 :
         print('Tidak ada game pada toko yang memenuhi kriteria.')
+    
+    makeBoxUI(contentToPrint, ['Game ID', 'Nama Game', 'Harga', 'Kategori', 'Tahun Rilis'])
 
 #f12
 def topup(matriksUser):
@@ -483,16 +494,22 @@ def topup(matriksUser):
 
 #f13
 def riwayat(matriks,userid):
+    contentToPrint = []
+
     adaRiwayat = False
     no = 1
     for i in range(getLength(matriks)):
         if userid == matriks[i][getIndexByName('user_id', 'riwayat')]:
-            print(f"{no}. {matriks[i][0]} | {matriks[i][1]} | {matriks[i][2]} | {matriks[i][4]}")
+            # print(f"{no}. {matriks[i][0]} | {matriks[i][1]} | {matriks[i][2]} | {matriks[i][4]}")
+            contentToPrint += [[matriks[i][0], matriks[i][1], str(matriks[i][2]), str(matriks[i][4])]]
             adaRiwayat = True
             no += 1
     
     if not adaRiwayat:
         print('Maaf, kamu tidak ada riwayat pembelian game. Ketik perintah beli_game untuk membeli.')
+    else:
+        print('Riwayat pembelian anda :')
+        makeBoxUI(contentToPrint, ['Game ID', 'Nama Game', 'Harga', 'Tahun Beli'])
         
     return
 

@@ -147,7 +147,7 @@ def makeBoxUI(arr : list[list], header : list = ''):
 
     print()
     # matriks kosong yang menyimpan panjang yang diinginkan
-    contentArr = [['' for i in range(getLength(arr))] for j in range (getLength(arr[0]))]
+    contentArr = [['' for i in range(getLength(arr[j]))] for j in range (getLength(arr))]
     lengthArr = [0 for i in arr[0]]
 
     for i in range(getLength(contentArr)):
