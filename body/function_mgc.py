@@ -1,6 +1,6 @@
 import time
 
-response = ['ya', 'tidak', 'maybe', 'magic', 'conch', 'shell']
+response = ['ya.', 'tidak.', 'maybe', 'mungkin aja si.', 'menurut kamu?', 'yaaa!', '100!', 'ga dulu deh.', 'bukan keanya :(', 'maap tpi keanya ga :o', 'ya downgs :3', 'keanya belom dulu, semangat! ♥']
 
 # mirip dengan randint, both end included
 def lcgInt(minInt : int = 0, maxInt : int = 1) -> int:
@@ -17,9 +17,10 @@ def lcgInt(minInt : int = 0, maxInt : int = 1) -> int:
 def lerp(a, b, t):
     return (b-a)*t+a
 
-# for i in range(10):
-#     print(response[lcgInt(0, len(response))])
-#     time.sleep(0.1)
+def kerangajaib():
+    input('Punya pertanyaan apa nih? ')
+    print()
+    print(response[lcgInt(0, len(response)-1)])
 
-input('Punya pertanyaan apa nih? ')
-print(response[lcgInt(0, len(response)-1)])
+if __name__ == '__init__' :
+    kerangajaib()

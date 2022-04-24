@@ -31,18 +31,27 @@ def inputValidated(text : str = '', validInput : list = defaultAllowedCharacter)
     
     return ans
 
-def validIntegerInput(textInput : str = ''):
+def validIntegerInput(textInput : str = '', lowerLimit : int = '' ):
     while True:
+        ans = input(textInput)
         try:
-            ans = int(input(textInput))
+            if ans == '':
+                return ans
+            ans = int(ans)
         except:
             print()
             print('Input bukan bilangan bulat!')
             print()
         else:
-            return ans
+            if lowerLimit != '':
+                if not lowerLimit < ans:
+                    print('Nilai tidak boleh kurang dari', lowerLimit)
+                else:
+                    return ans
+            else:
+                return ans
 
-def validStringInput(textInput : str = ''):
+def validStringInput(textInput : str = '', bannedCharacters : list = [';', ' ']):
     while True:
         try:
             ans = (input(textInput))
@@ -51,10 +60,11 @@ def validStringInput(textInput : str = ''):
         else:
             valid = True
             for i in ans:
-                if i == ' ' or i == ';':
-                    valid = False
-                    print('Masukan tidak valid')
-                    break
+                for j in bannedCharacters:
+                    if i == j:
+                        valid = False
+                        print('Masukan tidak valid')
+                        break
             
             if valid:
                 return ans
@@ -120,10 +130,48 @@ def clearScreen():
         _ = system('clear')
 
 # UI Box
-def getBoxUI(*boxLen : int, limiter : str = '|') -> str:
+def getBoxUI(boxLen : list, limiter : str = '|', isHeader : bool = False) -> str:
     limiter = '|'
     result = limiter
     for i in boxLen:
-        result += '{:<'+ str(i) +'}' + limiter
+        if not isHeader:
+            result += '{:<'+ str(i) +'}' + limiter
+        else:
+            result += '{:^'+ str(i) +'}' + limiter
 
     return result
+
+def makeBoxUI(arr : list[list], header : list = ''):
+    if getLength(arr) == 0:
+        return
+
+    print()
+    # matriks kosong yang menyimpan panjang yang diinginkan
+    contentArr = [['' for i in range(getLength(arr))] for j in range (getLength(arr[0]))]
+    lengthArr = [0 for i in arr[0]]
+
+    for i in range(getLength(contentArr)):
+        for j in range(getLength(contentArr[i])):
+            contentArr[i][j] = arr[i][j]
+    
+    for i in range(getLength(contentArr)):
+        for j in range(getLength(contentArr[i])):
+            if lengthArr[j] < getLength(str(contentArr[i][j])) or lengthArr[j] < getLength(str(header[j])):
+                if getLength(str(contentArr[i][j])) > getLength(str(header[j])):
+                    lengthArr[j] = getLength(str(contentArr[i][j]))
+                else:
+                    lengthArr[j] = getLength(str(header[j]))
+
+    for i in range(getLength(lengthArr)):
+        lengthArr[i] += 2
+
+    for i in range(getLength(contentArr)):
+        for j in range(getLength(contentArr[i])):
+            contentArr[i][j] = ' ' + str(contentArr[i][j])
+
+    if header != '':
+        print(getBoxUI(lengthArr, isHeader=True).format(*tuple(header)))    
+
+    for i in range(getLength(contentArr)):
+        print(getBoxUI(lengthArr).format(*tuple(contentArr[i])))
+

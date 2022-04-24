@@ -87,6 +87,5 @@ def fillTable(player = 'default', newGameTable = [['a' for i in range(3)] for j 
     newGameTable[x][y] = player
     return newGameTable
 
-tictactoe()
-#print(updateTable())
-#print(True == False == False)
+if __name__ == '__init__' :
+    tictactoe()

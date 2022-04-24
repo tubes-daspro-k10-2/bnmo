@@ -1,5 +1,7 @@
 import os
 import time
+from body.function_mgc import kerangajaib
+from body.function_tictactoe import tictactoe
 
 #from utils import 
 from utils.ui import printWarning, printRight, printCenter, clearScreen
@@ -81,7 +83,7 @@ def main():
             #exit(folderPath, userArray)
         else :
             choiceAnswer = MainMenu(sessionAccount)
-            
+            print()
 
             if isAdmin(sessionAccount):
                 if choiceAnswer == 1 :
@@ -99,15 +101,20 @@ def main():
                     search_game_at_store(gameArray)
                 elif choiceAnswer == 7:
                     userArray = topup(userArray)
-                    print(userArray)
                 elif choiceAnswer == 8:
-                    help()
+                    help(sessionAccount)
                 elif choiceAnswer == 9:
                     Save(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                 elif choiceAnswer == 10:
                     exit(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                     clearScreen()
                     finished = True
+
+                elif choiceAnswer == 11:
+                    kerangajaib()
+                elif choiceAnswer == 12:
+                    tictactoe()
+
             else:
                 if choiceAnswer == 1:
                     list_game_toko(gameArray)
@@ -122,14 +129,19 @@ def main():
                 elif choiceAnswer == 6:
                     riwayat(riwayatArray, sessionAccount[4])
                 elif choiceAnswer == 8:
-                    help()
+                    help(sessionAccount)
                 elif choiceAnswer == 9:
                     Save(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                 elif choiceAnswer == 10:
                     exit(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                     #clearScreen()
                     finished = True
-            
+
+                elif choiceAnswer == 11:
+                    kerangajaib()
+                elif choiceAnswer == 12:
+                    tictactoe()
+
             if finished : ExitPage()
 
             input()
