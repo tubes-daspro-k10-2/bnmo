@@ -1,4 +1,4 @@
-from typing import final
+from utils.ui import clearScreen
 
 
 def tictactoe():
@@ -78,11 +78,14 @@ def fillTable(player = 'default', newGameTable = [['a' for i in range(3)] for j 
                 if newGameTable[x][y] == '#':
                     inputValid = True
                 else:
-                    print(' sudah terisi cobalagi'); 
-                    print()
+                    print('Papan sudah terisi cobalagi'); 
+                    input()
             else:
                 print('print tidak valid cobalagi')
-                print()
+                input()
+        clearScreen()
+        printTable(newGameTable)
+        print()
 
     newGameTable[x][y] = player
     return newGameTable

@@ -31,6 +31,22 @@ def read_csv(folderPath : str, fileName : str) -> list[str]:
 
     for i in range(getLength(resultArray)):
         resultArray[i] = split(resultArray[i], ';') # potong string yang dibatasi tanda (;) menjadi list baru
+        
+    # catch file kosong
+    if resultArray == [] or resultArray == [[]]:
+        lenNeeded = 0
+        if fileName == 'kepemilikan':
+            lenNeeded = getLength(kepemilikancsvHeader)
+        elif fileName == 'riwayat':
+            lenNeeded = getLength(riwayatcsvHeader)
+        elif fileName == 'game':
+            lenNeeded = getLength(gamecsvHeader)
+        
+        emptyContent = []
+        for i in range(lenNeeded):
+            emptyContent += [[]]
+        print(emptyContent)
+        return emptyContent
 
     return resultArray
 

@@ -23,6 +23,7 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
             if (userArray[i][getIndexByName('username', 'user')] == username):
                 print("\nUsername ",username," sudah terpakai, silakan menggunakan username lain.")
                 terdaftar = True
+                return userArray
             i+=1
         if (not terdaftar):
             if (isUsernameValid(username)):
@@ -548,7 +549,12 @@ def Load(folderArg : str) -> tuple[list, list, list, list]:
 #f16
 def Save(folderArg : str, userArray : list, gameArray : list, riwayatArray : list, kepemilikanArray : list):
     #folderArg = './'+ folderArg +'/' # is alr made ./{}/
-    newFolderArg = './' + str(input('Masukkan nama folder penyimpanan : ')) + '/'
+    newFolderArg = str(input('Masukkan nama folder penyimpanan : '))
+
+    if newFolderArg == '':
+        newFolderArg = folderArg
+    else:
+        newFolderArg = './' + str(input('Masukkan nama folder penyimpanan : ')) + '/'
 
     if folderExist(newFolderArg):
         save_csv(newFolderArg, 'user', userArray)
