@@ -32,6 +32,8 @@ def inputValidated(text : str = '', validInput : list = defaultAllowedCharacter)
     return ans
 
 def validIntegerInput(textInput : str = '', lowerLimit : int = '' ):
+    # fungsi yang memvalidasi masukan sebagai integer sampai berhasil
+
     while True:
         ans = input(textInput)
         try:
@@ -52,6 +54,8 @@ def validIntegerInput(textInput : str = '', lowerLimit : int = '' ):
                 return ans
 
 def validStringInput(textInput : str = '', bannedCharacters : list = [';', ' ']):
+    # fungsi yang memvalidasi masukan hingga bernilai string dengan memperhatikan karakter yang tidak diperbolehkan
+
     while True:
         try:
             ans = (input(textInput))
@@ -73,6 +77,7 @@ def validStringInput(textInput : str = '', bannedCharacters : list = [';', ' '])
 ################## PRINT #######################
 def printCenter(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = defaultScreenWidth, space : str = ' '):
     # center align print, parameter : teks masukan, lebar layar, isian space
+
     textLen = getLength(text)
     diff = screenWidth - textLen
 
@@ -87,6 +92,7 @@ def printCenter(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = defau
 
 def printRight(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = defaultScreenWidth, space : str = ' '):
     # right align print, parameter : teks masukan, lebar layar, isian space
+
     textLen = getLength(text)
     diff = screenWidth - textLen
 
@@ -98,6 +104,7 @@ def printRight(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = defaul
 
 def printBlock(char : str = '#', screenWidth : int = defaultScreenWidth):
     # fungsi untuk mengblock satu baris dengan karakter yang dimasukkan
+
     print(char*screenWidth)
 
 def printWarning(text : str = 'URE MISSING TEXT INPUT', screenWidth : int = defaultScreenWidth, space : str = ' '):
@@ -131,6 +138,8 @@ def clearScreen():
 
 # UI Box
 def getBoxUI(boxLen : list, limiter : str = '|', isHeader : bool = False) -> str:
+    # formatting string untuk membuat box daftar item, memperhatikan panjang yang diinginkan
+
     limiter = '|'
     result = limiter
     for i in boxLen:
@@ -142,6 +151,8 @@ def getBoxUI(boxLen : list, limiter : str = '|', isHeader : bool = False) -> str
     return result
 
 def makeBoxUI(arr : list[list], header : list = ''):
+
+    # jika masukan adalah list kosong
     if getLength(arr) == 0:
         return
 
@@ -153,7 +164,8 @@ def makeBoxUI(arr : list[list], header : list = ''):
     for i in range(getLength(contentArr)):
         for j in range(getLength(contentArr[i])):
             contentArr[i][j] = arr[i][j]
-    
+
+    # iterasi data yang bersesuaian indeks, dan cari data dengan panjang string terpanjang    
     for i in range(getLength(contentArr)):
         for j in range(getLength(contentArr[i])):
             if lengthArr[j] < getLength(str(contentArr[i][j])) or lengthArr[j] < getLength(str(header[j])):
@@ -162,6 +174,7 @@ def makeBoxUI(arr : list[list], header : list = ''):
                 else:
                     lengthArr[j] = getLength(str(header[j]))
 
+    # beri margin di kiri dan kanan teks
     for i in range(getLength(lengthArr)):
         lengthArr[i] += 2
 
@@ -169,9 +182,12 @@ def makeBoxUI(arr : list[list], header : list = ''):
         for j in range(getLength(contentArr[i])):
             contentArr[i][j] = ' ' + str(contentArr[i][j])
 
+
+    # cetak header untuk daftar item
     if header != '':
         print(getBoxUI(lengthArr, isHeader=True).format(*tuple(header)))    
 
+    # cetak daftar item dengan format yang memperhatikan masukan panjang yang telah didapat
     for i in range(getLength(contentArr)):
         print(getBoxUI(lengthArr).format(*tuple(contentArr[i])))
 

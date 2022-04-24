@@ -1,11 +1,9 @@
-import os
 import time
 from body.function_mgc import kerangajaib
 from body.function_tictactoe import tictactoe
 
-#from utils import 
-from utils.ui import printWarning, printRight, printCenter, clearScreen
-from utils.file import append_array, folderExist, getIndexByName # move it to save
+from utils.ui import printWarning, printCenter, clearScreen
+from utils.file import folderExist
 from utils.user import getSessionAccount, isAdmin
 
 from front.ui import ExitPage, LoginPage, RegisterPage, header, RegisterPage, LandingPage, MainMenu
@@ -18,34 +16,33 @@ from body.function_main import register, login, riwayat, search_game_at_store, s
 ######## PARSER ##########
 import argparse
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument('folderName', nargs='?')
 args = parser.parse_args()
-#print(args.echo)
+#########################
 
+# fungsi utama
 def main():
     sessionAccount = emptySessionAccount #username, name, saldo, role, id
     folderPath = ''
-
-    if args.folderName != None :
+    
+    if args.folderName != None : # pengguna memberikan nama folder
         folderPath = './'+str(args.folderName)+'/'
         printCenter('Loading ...')
 
         time.sleep(2)
 
-        if(not folderExist(folderPath)):
+        if(not folderExist(folderPath)): # folder tidak ditemukan
             printWarning(f'folder "{args.folderName}" tidak ditemukan')
             time.sleep(1)
             quit()
-        else:
+        else: # folder ditemukan
             userArray, gameArray, riwayatArray, kepemilikanArray = Load(folderPath)
-            # print('load result :', userArray, gameArray, riwayatArray, kepemilikanArray) # hapus ini
+            
             time.sleep(1)
-        #read_csv(args.folderName)
-        #py main.py -folderName ./eksperimen/user.csv
+        
     else:
-        printWarning('Folder tidak diberikan')
+        printWarning('Folder tidak diberikan') # nama folder tidak diberikan pengguna
         quit()
     ##############################
 
@@ -53,30 +50,29 @@ def main():
     finished = False
     while not finished:
         
-        #clearScreen()
         choiceAnswer : str = ''
-        #header
+        
+        # cetak header
         header()
         print()
+
         ###################################################
         name = username = password = ''
+
         # Belum memiliki sesi login akun
         if sessionAccount[0] == '':
             choiceAnswer = LandingPage() # login, register, exit
             if choiceAnswer == 1:
                 username, password = LoginPage()
                 sessionAccount = login(userArray, username, password)
-            # elif currentAnswer == 2:
-            #     name, username, password = RegisterPage()
+        
             else: # 2
                 exit(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
                 finished = True
-            #sessionAccount = username, name, 0      
-            #userArray = append_array(userArray, 0, name, username, password, 4000)
-
-            # print(sessionAccount)
-            #exit(folderPath, userArray)
+            
+        # memiliki sesi login akun
         else :
+            # lakukan pilihan command
             choiceAnswer = MainMenu(sessionAccount)
             print()
 
@@ -141,6 +137,8 @@ def main():
 
             input()
             clearScreen()
+
+            # update nilai sesi akun
             sessionAccount = getSessionAccount(userArray, sessionAccount[0])
         ########################################
 

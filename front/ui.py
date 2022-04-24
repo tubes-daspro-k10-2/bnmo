@@ -2,15 +2,18 @@ from constants import defaultScreenWidth
 from utils.ui import inputValidated, printCenter, printRight, inputCenter, clearScreen
 from utils.user import isAdmin
 
+# header menu utama
 def header(screenWidth : int = defaultScreenWidth):
     printCenter('BNMO', screenWidth)
     printCenter('by K10-2', screenWidth)
 
+# cetak identitas akun
 def printAccount(sessionAccount : list):
     printRight(sessionAccount[0])
     printRight(sessionAccount[1])
     printRight('Rp ' + str(sessionAccount[2]))
 
+# cetak pilihan pengguna sesuai role
 def userChoices():
     print(' 1. list_game_toko')
     print(' 2. buy_game')
@@ -76,6 +79,8 @@ def bonusGameChoices():
     print('11. kerangajaib')
     print('12. tictactoe')
 
+
+# layar awal pengguna setelah memulai aplikasi
 def LandingPage() -> int:
     printCenter('Welcome!')
     print()
@@ -87,16 +92,16 @@ def LandingPage() -> int:
 
     
     try:
-        choiceAnswer = inputValidated('>>> ', ['1', '2', 'login', 'exit'])
+        choiceAnswer = inputValidated('>>> ', ['1', '2', 'login', 'exit']) # paksa masukan agar sesuai
     except:
         pass
     if choiceAnswer == '1' or choiceAnswer.lower() == 'login':
         return 1
-    # elif ans == '2' or ans.lower() == 'register':
-    #     return 2
-    else: # 3 or exit
+
+    else: # 2 or exit
         return 2
 
+# menu utama untuk melakukan registrasi pengguna baru
 def RegisterPage() -> list[str, str, str] :
     printCenter('Register a New User')
     print()
@@ -112,6 +117,7 @@ def RegisterPage() -> list[str, str, str] :
     
     return name, username, password
 
+# menu utama untuk melakukan login
 def LoginPage() -> tuple[str, str]:
     print()
     print()
@@ -128,6 +134,7 @@ def LoginPage() -> tuple[str, str]:
     
     return username, password
 
+# menu utama yang ditampilkan setelah melakukan login
 def MainMenu(sessionAccount : list) -> int:
     printCenter('Main Menu')
 
@@ -135,6 +142,7 @@ def MainMenu(sessionAccount : list) -> int:
     printAccount(sessionAccount)
     print()
 
+    # tampilkan pilihan command sesuai dengan role
     if isAdmin(sessionAccount):
         adminChoices()
         print()
@@ -211,9 +219,9 @@ def MainMenu(sessionAccount : list) -> int:
 
     print()
 
-    
     return choiceAnswer
 
+# layar pesan saat keluar
 def ExitPage():
     printCenter('Thank You!')
     print()

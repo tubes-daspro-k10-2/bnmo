@@ -2,6 +2,7 @@
 import time
 
 def getLength(arr : list) -> int:
+    # fungsi implementasi ulang len()
     count : int = 0
     for i in arr:
         count += 1
@@ -37,4 +38,6 @@ def split(toSplit : str, delimiter : str) -> list[str]:
     return resultArray
 
 def isGenap(x : int) -> bool: 
+    # fungsi yang menentukan apakah masukan bernilai genap
+
     return x % 2 == 0

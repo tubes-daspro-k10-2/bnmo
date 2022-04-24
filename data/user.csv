@@ -1,13 +1,5 @@
 id;username;name;password;role;saldo
 1;fkhap;fakih;aHst0gpy;admin;123456
-2;newuser;userbaru;iRzhPRGgpy;user;0
-3;min;minangdeng;Z1igpy;user;0
-4;cekhaskiloveyou;cekhash;-RHstP1QrqRFrh;user;0
-5;de;debuguser;IRgp;user;-2019
-6;su;sugihman;Phg;user;990447182
-7;klo12;kaloooo;HrHr;user;0
-8;m;m;Z;user;1
-9;admin;administrator;tIZ1i;admin;0
-10;addnew;addnew;tIgpy;user;0
-11;k;Kelsk Aidon;Hg;user;129391
-12;n;Noa eve;ig;user;0
+2;akun_demo;akun demo;IRZrgpy;user;0
+3;admin;admin;tIZ1i;admin;123000
+4;w_Games-;Windah Gamers;gpy7ENWf;user;998742999

@@ -1,9 +1,8 @@
-from array import array
 import time
 from front.ui import helpText
 
 from utils.file import append_array, read_csv, folderExist, createFolder, save_csv, getIndexByName
-from utils.ui import getBoxUI, makeBoxUI, printCenter, printWarning, validIntegerInput, validStringInput
+from utils.ui import makeBoxUI, printCenter, printWarning, validIntegerInput, validStringInput
 from utils.user import isUsernameValid
 from utils.main import getLength
 
@@ -19,16 +18,20 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
         
         terdaftar = False
         i = 0
+
+        # mengecek apakah user sudah terdaftar
         while ((not terdaftar) and i < getLength(userArray)):
             if (userArray[i][getIndexByName('username', 'user')] == username):
                 print("\nUsername ",username," sudah terpakai, silakan menggunakan username lain.")
                 terdaftar = True
                 return userArray
             i+=1
+        
+        # jika user tidak terdaftar
         if (not terdaftar):
-            if (isUsernameValid(username)):
+            if (isUsernameValid(username)): # masukan benar
                 user_valid = True
-            else:
+            else: # masukan salah
                 print("Username hanya dapat mengandung alfabet A-Z a-z, underscore '_', strip '-', dan angka 0-9") 
                 return userArray
             
@@ -40,6 +43,7 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
 
     baru = [str(idn+1), username, nama, encryptedPassword, "user", 0] #id,username,name,password,role,saldo
 
+    # simpan data baru ke array
     userArray = append_array(userArray, baru)
 
     #sukses didaftarkan
@@ -49,22 +53,27 @@ def register(userArray, nama, username, password) -> list[str, str, str, str]:
 
 #f03
 def login(userArray : list, username : str, password : str) -> list[str, str, str, str]:
+
+    # ubah password masukan
     encryptedPassword = encrypt(password)
     
     ada = False
     i=0
+    
+    # cek akun berdasarkan masukan
     while ((not ada) and i < getLength(userArray)):
+
+        # akun yang dituju ada dan masukan benar
         if (userArray[i][getIndexByName('username', 'user')] == username and userArray[i][getIndexByName('password', 'user')]==encryptedPassword):
             printCenter("Halo " + str(username) + "! Selamat datang di Binomo.", )
             ada = True
             
-            # tangkep nilainya di main
             return userArray[i][getIndexByName('username', 'user')], userArray[i][getIndexByName('name', 'user')], userArray[i][getIndexByName('saldo', 'user')], userArray[i][getIndexByName('role', 'user')], userArray[i][getIndexByName('id', 'user')] #username, name, saldo, role       
         i += 1
-
+    
     print("\nMasukan username atau password salah atau tidak ditemukan\n")
 
-    return emptySessionAccount
+    return emptySessionAccount # login gagal
 
 #f04
 def tambah_game(gameArray : list) -> list:
@@ -145,9 +154,6 @@ def ubah_stok(matrix : str) :
 
     # Menginput ID Game
     game_id = validStringInput("Masukkan ID game : ")
-
-    # Menghapus header pada matrix
-    # konten_matriks = matrix[1:] # data alr no header
 
     # Menghitung banyak baris pada matrix
     count = getLength(matrix)
@@ -243,6 +249,8 @@ def list_game_toko(matrix) :
         contentToPrint = []
         for i in range(count) :
             contentToPrint += [matrix[list_index[i]]]
+
+        # cetak hasil sort
         makeBoxUI(contentToPrint, ['Game ID', 'Nama Game', 'Kategori', 'Tahun Rilis', 'Harga', 'Stok'])
         
         return
@@ -253,12 +261,6 @@ def buy_game(matrix : list[list], matrix2 : list[list], matrix3 : list[list], ma
 
     # Menginput game ID yang ingin dibeli
     game_id = validStringInput("Masukkan ID Game : ")
-
-    
-    # Menghapus header pada matriks # data alr no header
-    # game_content = matrix1[1:]
-    # kepemilikan_content = matrix2[1:]
-    # user_content = matrix3[1:]
 
     # empty array problem
     game_content = [['' for i in range(getLength(gamecsvHeader))] for j in matrix]
@@ -329,10 +331,6 @@ def buy_game(matrix : list[list], matrix2 : list[list], matrix3 : list[list], ma
                     # Mengurangi stok setelah dibeli
                     game_content[k][getIndexByName('stok', 'game')] -= 1
                     user_content[l][getIndexByName('saldo', 'user')] -= game_content[k][getIndexByName('harga', 'game')]
-                    # Menambah data ke dalam matriks kepemilikan_data  # append replaced
-                    # matrix2 = add_row(matrix2) # menambah slot baris baru
-                    # matrix2[-1][0] = game_id # mengisi data pembelian
-                    # matrix2[-1][1] = user_id # mengisi data pembelian
 
                     kepemilikan_content = append_array(kepemilikan_content, [game_id, user_id])
                     riwayat_content = append_array(riwayat_content, [game_id, game_content[k][getIndexByName('nama', 'game')], game_content[k][getIndexByName('harga', 'game')], user_id, tahun_beli])
@@ -344,10 +342,6 @@ def buy_game(matrix : list[list], matrix2 : list[list], matrix3 : list[list], ma
                 # Mengurangi stok setelah dibeli
                 game_content[k][getIndexByName('stok', 'game')] -= 1
                 user_content[l][getIndexByName('saldo', 'user')] -= game_content[k][getIndexByName('harga', 'game')]
-                # Menambah data ke dalam matriks kepemilikan_data # append replaced
-                # matrix2 = add_row(matrix2) # menambah slot baris baru
-                # matrix2[-1][0] = game_id # mengisi data pembelian
-                # matrix2[-1][1] = user_id # mengisi data pembelian
 
                 kepemilikan_content = append_array(kepemilikan_content, [game_id, user_id])
                 riwayat_content = append_array(riwayat_content, [game_id, game_content[k][getIndexByName('nama', 'game')], game_content[k][getIndexByName('harga', 'game')], user_id, tahun_beli])
@@ -363,6 +357,9 @@ def list_game(game_content, kepemilikan_content, user_id) :
     j = 1
 
     contentToPrint = []
+
+
+    # daftar semua game
     for i in range(user_count) :
         if kepemilikan_content[i][getIndexByName('user_id', 'kepemilikan')] == user_id :
             k = 0
@@ -374,13 +371,14 @@ def list_game(game_content, kepemilikan_content, user_id) :
                     k += 1
             
             contentToPrint += [[game_content[k][0], game_content[k][1], game_content[k][2], game_content[k][3], game_content[k][4]]]
-            #print(f"{j}. {game_content[k][0]} | {game_content[k][1]} | {game_content[k][2]} | {game_content[k][3]} | {game_content[k][4]}")
-            # 
-            
+
             j += 1
     
+    # cetak daftar game
     makeBoxUI(contentToPrint, ['ID', 'Nama game', 'Kategori', 'Tahun Rilis', 'Harga'])
 
+
+    # jika game yang dimiliki tidak ditemukan
     if j == 1 :
         print("Maaf, kamu belum memiliki game. Ketik perintah buy_game untuk membeli")
         
@@ -406,6 +404,7 @@ def search_my_game(listgame,listkepemilikan,userid):
     
         return not count > 0
     
+    # cari game yang dimiliki melalui array kepemilikan
     if not isKepemilikanKosong(listkepemilikan,userid):
         if (idgame != '') :
             for j in range(getLength(listkepemilikan)):
@@ -413,15 +412,17 @@ def search_my_game(listgame,listkepemilikan,userid):
                     for i in range(getLength(listgame)):
                         if (tahunrilis != ''):
                             if (idgame == listgame[i][0] and tahunrilis == str(listgame[i][3])):
-                               # print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                    
                                 contentToPrint += [[listgame[i][0], listgame[i][1], listgame[i][4], listgame[i][2], listgame[i][3]]]
                                 ada = True
+
                                 break
                         else:
                             if (idgame == listgame[i][0]):
-                                # print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                
                                 contentToPrint += [[listgame[i][0], listgame[i][1], listgame[i][4], listgame[i][2], listgame[i][3]]]
                                 ada = True
+
                                 break
         else:
             for j in range(getLength(listkepemilikan)):
@@ -430,21 +431,26 @@ def search_my_game(listgame,listkepemilikan,userid):
                     for i in range(getLength(listgame)):
                         if (tahunrilis != ''):
                             if (idgame == listgame[i][0] and tahunrilis == str(listgame[i][3])):
-                                # print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                
                                 contentToPrint += [[listgame[i][0], listgame[i][1], listgame[i][4], listgame[i][2], listgame[i][3]]]
                                 ada = True
+
                                 no += 1
                         else:
                             if (idgame == listgame[i][0]):
-                                # print(f"{no}. {listgame[i][0]} | {listgame[i][1]} | {listgame[i][4]} | {listgame[i][2]} | {listgame[i][3]}")
+                                
                                 contentToPrint += [[listgame[i][0], listgame[i][1], listgame[i][4], listgame[i][2], listgame[i][3]]]
                                 ada = True
+
                                 no += 1
 
+        # cetak daftar game yang dimiliki
         makeBoxUI(contentToPrint, ['ID Game', 'Nama Game', 'Harga', 'Kategori', 'Tahun RIlis'])
 
+        # jika tidak ditemukan
         if not ada:
             print('Tidak ada game pada inventory-mu yang memenuhi kriteria.')
+
         return
 
     else:
@@ -465,12 +471,13 @@ def search_game_at_store(arrayGame):
     for i in range (getLength(arrayGame)):
         if ((id == "") or (id == arrayGame[i][0])) and ((game == "") or (game == arrayGame[i][1])) and ((harga == "") or (harga == str(arrayGame[i][4]))) and ((kategori == "") or (kategori == arrayGame[i][2])) and ((tahunrilis == "") or (tahunrilis == str(arrayGame[i][3]))) :
             x = x + 1
-            # print(f"{x}. {arrayGame[i][0]} | {arrayGame[i][1]} | {arrayGame[i][4]} | {arrayGame[i][2]} | {arrayGame[i][3]} | {arrayGame[i][5]}")
             contentToPrint += [[arrayGame[i][0], arrayGame[i][1], arrayGame[i][4], arrayGame[i][2], arrayGame[i][3]]]
-                   
+
+    # tidak ditemukan game yang sesuai   
     if x == 0 :
         print('Tidak ada game pada toko yang memenuhi kriteria.')
     
+    # cetak daftar
     makeBoxUI(contentToPrint, ['Game ID', 'Nama Game', 'Harga', 'Kategori', 'Tahun Rilis'])
 
 #f12
@@ -478,17 +485,22 @@ def topup(matriksUser):
     username = input('Masukkan username: ')
     saldo = int(input('Masukkan saldo: '))
     
+    # cari pengguna
     for i in range(getLength(matriksUser)):
         if username == matriksUser[i][getIndexByName('username', 'user')] :
             saldoawal = int(matriksUser[i][getIndexByName('saldo', 'user')])
-            if (saldoawal + saldo) >= 0 :
+
+            # beri saldo
+            if (saldoawal + saldo) >= 0 : # masukan valid
                 saldoawal += saldo
                 matriksUser[i][getIndexByName('saldo', 'user')] = str(saldoawal)
                 print(f"Top up berhasil. Saldo {matriksUser[i][getIndexByName('username', 'user')]} berubah menjadi {matriksUser[i][getIndexByName('saldo', 'user')]}.")
                 return matriksUser
-            else :
+            else : # masukan tidak valid
                 print('Masukan tidak valid.')
                 return matriksUser
+    
+    # tidak ditemukan pengguna yang dimaksud
     print(f'Username "{username}" tidak ditemukan.')
 
     return matriksUser
@@ -499,35 +511,44 @@ def riwayat(matriks,userid):
 
     adaRiwayat = False
     no = 1
+
+    # daftar riwayat
     for i in range(getLength(matriks)):
         if userid == matriks[i][getIndexByName('user_id', 'riwayat')]:
-            # print(f"{no}. {matriks[i][0]} | {matriks[i][1]} | {matriks[i][2]} | {matriks[i][4]}")
+            
             contentToPrint += [[matriks[i][0], matriks[i][1], str(matriks[i][2]), str(matriks[i][4])]]
             adaRiwayat = True
             no += 1
     
     if not adaRiwayat:
         print('Maaf, kamu tidak ada riwayat pembelian game. Ketik perintah beli_game untuk membeli.')
-    else:
+    else: # riwayat ada
         print('Riwayat pembelian anda :')
-        makeBoxUI(contentToPrint, ['Game ID', 'Nama Game', 'Harga', 'Tahun Beli'])
+        makeBoxUI(contentToPrint, ['Game ID', 'Nama Game', 'Harga', 'Tahun Beli']) # cetak riwayat
         
     return
 
 #f14
 def help(sessionAccount : list):
-    printWarning('HELP MESSAGE', 100)
-    helpText(sessionAccount)
+    # prosedur yang digunakan untuk mencetak pesan bantuan
+
+    printWarning('HELP MESSAGE', 100) # pesan header
+    helpText(sessionAccount) # cetak pesan sesuai dengan role
 
 #f15
 def Load(folderArg : str) -> tuple[list, list, list, list]:
+    # fungsi yang digunakan untuk memuat data csv dalam bentuk list ke dalam memori
+
+    # muat data dari csv dalam list yang sesuai
     userArr = read_csv(folderArg, 'user')
     gameArr = read_csv(folderArg, 'game')
     riwayatArr = read_csv(folderArg, 'riwayat')
     kepemilikanArr = read_csv(folderArg, 'kepemilikan')
     
+    # pesan bahwa proses memuat data selesai
     printWarning('Data from ' + folderArg + ' loaded successfully.')
 
+    # ubah variabel menjadi tipe data yang sesuai
     for i in range(getLength(userArr)):
         for j in range(getLength(userArr[i])):
             if j == getIndexByName('saldo', 'user'):
@@ -543,26 +564,28 @@ def Load(folderArg : str) -> tuple[list, list, list, list]:
             if j == getIndexByName('harga', 'riwayat') or j == getIndexByName('tahun_beli', 'riwayat'):
                 riwayatArr[i][j] = int(riwayatArr[i][j])
     
-
-    return (userArr, gameArr, riwayatArr, kepemilikanArr) # tuple, be careful
+    # kembalikan nilai muatan yang sudah dirapikan
+    return (userArr, gameArr, riwayatArr, kepemilikanArr)
 
 #f16
 def Save(folderArg : str, userArray : list, gameArray : list, riwayatArray : list, kepemilikanArray : list):
-    #folderArg = './'+ folderArg +'/' # is alr made ./{}/
+    # prosedur yang digunakan untuk menyimpan data dalam memori sebagai data csv
+
+    # masukan nama folder yang diinginkan
     newFolderArg = str(input('Masukkan nama folder penyimpanan : '))
 
-    if newFolderArg == '':
-        newFolderArg = folderArg
-    else:
+    if newFolderArg == '': # masukan kosong
+        newFolderArg = folderArg # gunakan nama folder lama
+    else: # masukan tidak kosong
         newFolderArg = './' + newFolderArg + '/'
 
-    if folderExist(newFolderArg):
+    if folderExist(newFolderArg): # folder telah ada sebelumnya
         save_csv(newFolderArg, 'user', userArray)
         save_csv(newFolderArg, 'game', gameArray)
         save_csv(newFolderArg, 'riwayat', riwayatArray)
         save_csv(newFolderArg, 'kepemilikan', kepemilikanArray)
     else: #folder doesnt exist
-        createFolder(newFolderArg)
+        createFolder(newFolderArg) # buat folder baru
         save_csv(newFolderArg, 'user', userArray)
         save_csv(newFolderArg, 'game', gameArray)
         save_csv(newFolderArg, 'riwayat', riwayatArray)
@@ -575,6 +598,8 @@ def Save(folderArg : str, userArray : list, gameArray : list, riwayatArray : lis
 
 #f17
 def exit(folderPath : str, userArray : list, gameArray : list, riwayatArray : list, kepemilikanArray : list):
+    # prosedur untuk keluar dari aplikasi
+
     # local function
     def isYes(answer : str) :
         if answer == 'y' or answer == 'Y':
@@ -586,6 +611,7 @@ def exit(folderPath : str, userArray : list, gameArray : list, riwayatArray : li
             return True
         return False
     
+    # validasi masukan
     inputDone = False
     while not inputDone:
         try:
@@ -596,6 +622,7 @@ def exit(folderPath : str, userArray : list, gameArray : list, riwayatArray : li
             if isYes(ans) or isNo(ans):
                 inputDone = True
 
+    # jika jawaban adalah iya, lakukan save
     if isYes(ans):
         Save(folderPath, userArray, gameArray, riwayatArray, kepemilikanArray)
         input()
