@@ -471,14 +471,14 @@ def search_game_at_store(arrayGame):
     for i in range (getLength(arrayGame)):
         if ((id == "") or (id == arrayGame[i][0])) and ((game == "") or (game == arrayGame[i][1])) and ((harga == "") or (harga == str(arrayGame[i][4]))) and ((kategori == "") or (kategori == arrayGame[i][2])) and ((tahunrilis == "") or (tahunrilis == str(arrayGame[i][3]))) :
             x = x + 1
-            contentToPrint += [[arrayGame[i][0], arrayGame[i][1], arrayGame[i][4], arrayGame[i][2], arrayGame[i][3]]]
+            contentToPrint += [[arrayGame[i][0], arrayGame[i][1], arrayGame[i][4], arrayGame[i][2], arrayGame[i][3], arrayGame[i][5]]]
 
     # tidak ditemukan game yang sesuai   
     if x == 0 :
         print('Tidak ada game pada toko yang memenuhi kriteria.')
     
     # cetak daftar
-    makeBoxUI(contentToPrint, ['Game ID', 'Nama Game', 'Harga', 'Kategori', 'Tahun Rilis'])
+    makeBoxUI(contentToPrint, ['Game ID', 'Nama Game', 'Harga', 'Kategori', 'Tahun Rilis', 'Stok'])
 
 #f12
 def topup(matriksUser):
