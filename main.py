@@ -14,11 +14,6 @@ from constants import emptySessionAccount
 
 from body.function_main import register, login, riwayat, search_game_at_store, search_my_game, tambah_game, topup, ubah_game, ubah_stok, list_game_toko, buy_game, list_game, help , Load, Save, exit
 
-#from f02 import register
-#from f14 import help
-#from f15 import Load
-#from f16 import Save
-#from f17 import exit
 
 ######## PARSER ##########
 import argparse

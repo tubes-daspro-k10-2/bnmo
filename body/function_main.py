@@ -554,7 +554,7 @@ def Save(folderArg : str, userArray : list, gameArray : list, riwayatArray : lis
     if newFolderArg == '':
         newFolderArg = folderArg
     else:
-        newFolderArg = './' + str(input('Masukkan nama folder penyimpanan : ')) + '/'
+        newFolderArg = './' + newFolderArg + '/'
 
     if folderExist(newFolderArg):
         save_csv(newFolderArg, 'user', userArray)
